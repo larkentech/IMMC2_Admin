@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+tools:context=".DeleteBookFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:background="#fff">
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="190dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_shape1"
+            android:entries="@array/book_category"
+            android:hint="Category"
+            android:popupBackground="#ffffff"
+            android:textSize="26sp"
+
+            android:elevation="3dp"/>
+
+        <Spinner
+            android:id="@+id/subCategorySpinner"
+            android:layout_width="190dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_shape1"
+            android:hint="Sub-Category"
+
+            android:outlineAmbientShadowColor="#111"
+            android:textSize="26sp" />
+
+
+    </LinearLayout>
+
+
+<Button
+    android:id="@+id/getBook"
+    android:layout_marginTop="16dp"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Get Book"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:textColor="#ffffff"
+    android:fontFamily="@font/latoblack"
+    android:background="@drawable/button_shape"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/deleteListView"
+        android:scrollbars="none"
+        android:divider="@null"/>
+</LinearLayout>

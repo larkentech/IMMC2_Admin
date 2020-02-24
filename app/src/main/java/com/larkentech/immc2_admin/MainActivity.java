@@ -19,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
 
     TextView admiLoginId;
     CardView addBook;
+    CardView editBook;
+    CardView deleteBook;
+    CardView orders;
+    CardView transaction;
+    CardView feedback;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -28,8 +33,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         addBook = (CardView) findViewById(R.id.addBook);
+        editBook = (CardView) findViewById(R.id.editBook);
+        deleteBook = (CardView) findViewById(R.id.deleteBook);
+        orders = (CardView) findViewById(R.id.orders);
+        transaction = (CardView) findViewById(R.id.transaction);
+        feedback = (CardView) findViewById(R.id.feedback);
 
         admiLoginId = findViewById(R.id.adminLoginId);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("AdminCredentials");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -50,10 +61,79 @@ public class MainActivity extends AppCompatActivity {
                 openAddBook();
             }
         });
+
+        editBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openEditBook();
+            }
+        });
+
+        deleteBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDeleteBook();
+            }
+        });
+        orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOrders();
+            }
+        });
+
+        transaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTransaction();
+            }
+        });
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFeedback();
+            }
+        });
+
+
     }
+
+
+
+
     public void openAddBook(){
         Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
         intent.putExtra("Category","AddBook");
+        startActivity(intent);
+    }
+
+    private void openEditBook() {
+        Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","EditBook");
+        startActivity(intent);
+    }
+
+    public void openDeleteBook(){
+        Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","DeleteBook");
+        startActivity(intent);
+    }
+
+    private void openOrders() {
+        Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","Orders");
+        startActivity(intent);
+    }
+
+    private void openTransaction() {
+        Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","Transaction");
+        startActivity(intent);
+    }
+
+    private void openFeedback() { Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","Feedback");
         startActivity(intent);
     }
 }

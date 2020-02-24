@@ -30,6 +30,22 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 transaction.add(R.id.detailsActivityContainer,addBookFragment);
                 transaction.commit();
                 break;
+
+            case "EditBook":
+                FragmentManager manager1 = getSupportFragmentManager();
+                EditBookFragment editBookFragment = new EditBookFragment();
+                FragmentTransaction transaction1 = manager1.beginTransaction();
+                transaction1.replace(R.id.detailsActivityContainer,editBookFragment);
+                transaction1.commit();
+                break;
+            case "DeleteBook":
+                FragmentManager manager2 = getSupportFragmentManager();
+                DeleteBookFragment deleteBookFragment = new DeleteBookFragment();
+                FragmentTransaction transaction2 = manager2.beginTransaction();
+                transaction2.replace(R.id.detailsActivityContainer,deleteBookFragment);
+                transaction2.commit();
+                break;
+
         }
 
     }
