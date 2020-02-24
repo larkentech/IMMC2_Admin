@@ -1,6 +1,7 @@
 package com.larkentech.immc2_admin;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +33,18 @@ import java.util.List;
 public class EditBookFragment extends Fragment {
 
     Spinner s1, s2;
+    ListView selectedListView;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
+    EditAdapter editAdapter;
 
+    List<String> BookId;
+
+    Button getBook;
+    public String bookID;
+    public String bookCategoryID;
+    public String bookSubCategoryID;
 
     public EditBookFragment() {
         // Required empty public constructor
@@ -35,16 +54,22 @@ public class EditBookFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
+
+
+
         return inflater.inflate(R.layout.fragment_edit_book, container, false);
 
 
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        getBook = view.findViewById(R.id.getBook);
+        BookId = new ArrayList<>();
 
         s1 = (Spinner) view.findViewById(R.id.categorySpinner);
         s2 = (Spinner) view.findViewById(R.id.subCategorySpinner);
@@ -115,6 +140,55 @@ public class EditBookFragment extends Fragment {
 
             }
         });
+        getBook.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                String category = s1.getSelectedItem().toString();
+                String subCategory = s2.getSelectedItem().toString();
+
+                selectedListView = view.findViewById(R.id.editListView);
+                List<BookModal> selectedList = new ArrayList<>();
+                editAdapter = new EditAdapter(getContext(), R.layout.single_edit_item, selectedList, BookId, getActivity());
+                selectedListView.setAdapter(editAdapter);
+
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference().child("BookDetails").child(category).child(subCategory);
+                databaseReference.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        BookModal selectedBookModal = dataSnapshot.getValue(BookModal.class);
+                        editAdapter.add(selectedBookModal);
+                        BookId.add(dataSnapshot.getKey());
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
     }
 }
+
+
+
+

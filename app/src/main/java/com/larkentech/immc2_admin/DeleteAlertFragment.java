@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import es.dmoral.toasty.Toasty;
+
+import static es.dmoral.toasty.Toasty.LENGTH_LONG;
 
 
 /**
@@ -40,7 +45,9 @@ public class DeleteAlertFragment extends DialogFragment {
     Button cancel,delete;
     ImageView bookimage;
 
-
+    public String bookID;
+    public String bookCategoryID;
+    public String bookSubCategoryID;
 
 
     public DeleteAlertFragment() {
@@ -64,6 +71,11 @@ public class DeleteAlertFragment extends DialogFragment {
         bookDesigner = getArguments().getString("BookDesigner");
         bookPrice = getArguments().getString("BookPrice");
         bookImage = getArguments().getString("BookImage");
+
+        bookID = getArguments().getString("BookID");
+        bookCategoryID = getArguments().getString("BookCategory");
+        bookSubCategoryID = getArguments().getString("BookSubCategory");
+
         return inflater.inflate(R.layout.fragment_delete_alert, container, false);
     }
 
@@ -97,13 +109,22 @@ public class DeleteAlertFragment extends DialogFragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                deleteBook(bookID);
             }
         });
+    }
+    private void deleteBook(String bookID){
+        if (bookSubCategoryID != null)
+        {
+            DatabaseReference databaseReference = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID);
+            databaseReference.removeValue();
+        }
+        else {
+
+            DatabaseReference databaseReference1 = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookID);
+            databaseReference1.removeValue();
+
+        }
 
     }
-
-
-
-
 }

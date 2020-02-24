@@ -55,9 +55,6 @@ public class DeleteBookFragment extends Fragment {
     List<String> BookId;
 
     Button getBook;
-    public String bookID;
-    public String bookCategoryID;
-    public String bookSubCategoryID;
 
     public DeleteBookFragment() {
         // Required empty public constructor
