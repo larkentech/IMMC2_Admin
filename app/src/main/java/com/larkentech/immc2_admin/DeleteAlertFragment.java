@@ -113,6 +113,15 @@ public class DeleteAlertFragment extends DialogFragment {
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+    }
+
     private void deleteBook(String bookID){
         if (bookSubCategoryID != null)
         {

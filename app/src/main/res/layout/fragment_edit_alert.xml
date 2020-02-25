@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".EditAlertFragment">
+    tools:context=".EditAlertFragment"
+    android:background="#EDEBEB">
 
     <HorizontalScrollView
         android:scrollbars="none"
@@ -132,7 +133,7 @@
         android:id="@+id/bookName"
         android:background="@drawable/edit_text_shape1"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:layout_width="300dp"
         android:hint="Book Name"
         android:padding="10dp"
@@ -146,31 +147,32 @@
         android:layout_marginTop="16dp"
         android:layout_width="300dp"
         android:hint="Designer Name"
-        android:textSize="20sp"
         android:padding="10dp"
+        android:textSize="20sp"
         android:layout_height="wrap_content"/>
 
-    <Spinner
+    <EditText
         android:id="@+id/categorySpinner"
         android:background="@drawable/edit_text_shape1"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:layout_width="300dp"
         android:hint="Category"
-        android:textSize="20sp"
         android:padding="10dp"
+        android:textSize="20sp"
         android:layout_height="wrap_content"
         android:entries="@array/book_category"/>
 
-    <Spinner
+    <EditText
         android:id="@+id/subCategorySpinner"
         android:background="@drawable/edit_text_shape1"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:layout_width="300dp"
         android:padding="10dp"
-        android:hint="Sub-Category"
         android:textSize="20sp"
+        android:hint="Sub-Category"
+
         android:layout_height="40dp"/>
 
     <EditText
@@ -191,9 +193,9 @@
         android:layout_marginTop="16dp"
         android:layout_width="300dp"
         android:hint="Description"
-        android:textSize="20sp"
         android:padding="10dp"
-        android:layout_height="120dp"/>
+        android:textSize="20sp"
+        android:layout_height="140dp"/>
 
     <Button
         android:id="@+id/update"

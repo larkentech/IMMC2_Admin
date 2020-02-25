@@ -55,6 +55,9 @@ public class EditAlertFragment extends DialogFragment {
     TextView bookdesc;
     TextView bookprice;
     TextView bookdesigner;
+    TextView bookcategory;
+    TextView booksubcategory;
+
     Button update;
     ImageView bookimage;
 
@@ -101,6 +104,8 @@ public class EditAlertFragment extends DialogFragment {
         bookdesigner = (TextView) view.findViewById(R.id.designerName);
         bookprice = (TextView) view.findViewById(R.id.bookPrice);
         bookdesc = (TextView) view.findViewById(R.id.bookDesc);
+        bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
+        booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
         bookimage = (ImageView) view.findViewById(R.id.bookImage1);
 
         update = view.findViewById(R.id.update);
@@ -109,6 +114,8 @@ public class EditAlertFragment extends DialogFragment {
         bookname.setText(bookName);
         bookdesigner.setText(bookDesigner);
         bookdesc.setText(bookDesc);
+        bookcategory.setText(bookCategoryID);
+        booksubcategory.setText(bookSubCategoryID);
         bookprice.setText(bookPrice);
         Glide
                 .with(getContext())
@@ -122,5 +129,15 @@ public class EditAlertFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
     }
 }
