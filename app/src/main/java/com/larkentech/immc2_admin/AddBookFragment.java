@@ -1,12 +1,15 @@
 package com.larkentech.immc2_admin;
 
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,9 +22,13 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,14 +66,17 @@ public class AddBookFragment extends Fragment {
     String bookDesignerNameStr;
     String priceStr;
     String descriptionStr;
+    String bookCategoryStr;
+    String bookSubCategoryStr;
 
     Button createBook;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference1;
 
     public static final int IMAGE_CODE=1;
 
-    Uri imageuri;
+    List<Uri> imageuri = new ArrayList<>();
 
     String bookPhoto1;
     String bookPhoto2;
@@ -77,7 +87,16 @@ public class AddBookFragment extends Fragment {
     String bookPhoto7;
 
     StorageReference mStorageRef;
+    FirebaseStorage storage;
+    private int imagesCount = 4;
+    HashMap<String, Object> addImagesMap = new HashMap<>();
+    Drawable tempdraw;
+    String pushKEY;
+    String BookImage;
 
+    int count1;
+    int imagesCount1;
+    HashMap<String, Object> addBookMap = new HashMap<>();
 
 
     int flag;
@@ -100,6 +119,8 @@ public class AddBookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
+
         bookImage1 =(ImageView) view.findViewById(R.id.bookImage1);
         bookImage2 =(ImageView) view.findViewById(R.id.bookImage2);
         bookImage3 =(ImageView) view.findViewById(R.id.bookImage3);
@@ -116,6 +137,7 @@ public class AddBookFragment extends Fragment {
         price = (EditText) view.findViewById(R.id.price);
         description = (EditText) view.findViewById(R.id.description);
         designerName = (EditText) view .findViewById(R.id.designerName);
+
 
         createBook = (Button) view.findViewById(R.id.createBook);
 
@@ -192,6 +214,7 @@ public class AddBookFragment extends Fragment {
                 String sp1= String.valueOf(s1.getSelectedItem());
                 if (sp1.contentEquals("Engineering"))
                 {
+                    imagesCount = 7;
                     List<String> list = new ArrayList<String>();
                     list.add("CS");
                     list.add("EC");
@@ -220,9 +243,9 @@ public class AddBookFragment extends Fragment {
                     dataAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     dataAdapter2.notifyDataSetChanged();
                     s2.setAdapter(dataAdapter2);
-                    addPhotoCard5.setVisibility(View.INVISIBLE);
-                    addPhotoCard6.setVisibility(View.INVISIBLE);
-                    addPhotoCard7.setVisibility(View.INVISIBLE);
+                    addPhotoCard5.setVisibility(View.GONE);
+                    addPhotoCard6.setVisibility(View.GONE);
+                    addPhotoCard7.setVisibility(View.GONE);
                 }
                 if (sp1.contentEquals("QuoteTheme"))
                 {
@@ -240,9 +263,9 @@ public class AddBookFragment extends Fragment {
                     dataAdapter3.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     dataAdapter3.notifyDataSetChanged();
                     s2.setAdapter(dataAdapter3);
-                    addPhotoCard5.setVisibility(View.INVISIBLE);
-                    addPhotoCard6.setVisibility(View.INVISIBLE);
-                    addPhotoCard7.setVisibility(View.INVISIBLE);
+                    addPhotoCard5.setVisibility(View.GONE);
+                    addPhotoCard6.setVisibility(View.GONE);
+                    addPhotoCard7.setVisibility(View.GONE);
                 }
                 if (sp1.contentEquals("ScienceTheme"))
                 {
@@ -254,9 +277,9 @@ public class AddBookFragment extends Fragment {
                     dataAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     dataAdapter4.notifyDataSetChanged();
                     s2.setAdapter(dataAdapter4);
-                    addPhotoCard5.setVisibility(View.INVISIBLE);
-                    addPhotoCard6.setVisibility(View.INVISIBLE);
-                    addPhotoCard7.setVisibility(View.INVISIBLE);
+                    addPhotoCard5.setVisibility(View.GONE);
+                    addPhotoCard6.setVisibility(View.GONE);
+                    addPhotoCard7.setVisibility(View.GONE);
                 }
             }
 
@@ -279,32 +302,41 @@ public class AddBookFragment extends Fragment {
 
         if(requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() !=null);
 
-        imageuri=data.getData();
+        imageuri.add(data.getData());
 
         switch (flag)
         {
             case 1:
-                bookImage1.setImageURI(imageuri);
+                bookImage1.setImageURI(imageuri.get(0));
                 break;
             case 2:
-                bookImage2.setImageURI(imageuri);
+                bookImage2.setImageURI(imageuri.get(1));
                 break;
             case 3:
-                bookImage3.setImageURI(imageuri);
+                bookImage3.setImageURI(imageuri.get(2));
                 break;
             case 4:
-                bookImage4.setImageURI(imageuri);
+                bookImage4.setImageURI(imageuri.get(3));
                 break;
             case 5:
-                bookImage5.setImageURI(imageuri);
+                bookImage5.setImageURI(imageuri.get(4));
                 break;
             case 6:
-                bookImage6.setImageURI(imageuri);
+                bookImage6.setImageURI(imageuri.get(5));
                 break;
             case 7:
-                bookImage7.setImageURI(imageuri);
+                bookImage7.setImageURI(imageuri.get(6));
                 break;
         }
+    }
+
+
+    private String getExtension(Uri uri)
+    {
+
+        ContentResolver contentResolver=getContext().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     public void openCreateBook()
@@ -313,19 +345,87 @@ public class AddBookFragment extends Fragment {
         bookDesignerNameStr = designerName.getText().toString();
         priceStr = price.getText().toString();
         descriptionStr = description.getText().toString();
+        bookCategoryStr = s1.getSelectedItem().toString();
+        bookSubCategoryStr = s2.getSelectedItem().toString();
 
         if (bookNameStr.isEmpty() || bookDesignerNameStr.isEmpty() || priceStr.isEmpty() || descriptionStr.isEmpty() ) {
             Toasty.error(getContext(), "Enter Required Details").show();
         }else
             {
+                for (int i=0;i<imageuri.size();i++)
+                {
+                    uploadImage(imageuri.get(i),i,imageuri.size());
+                }
+
+
                 databaseReference = firebaseDatabase.getReference();
-                HashMap<String, Object> addBookMap = new HashMap<>();
                 addBookMap.put("BookName", bookName.getText().toString());
                 addBookMap.put("BookPrice", price.getText().toString());
                 addBookMap.put("BookDesc", description.getText().toString());
                 addBookMap.put("BookDesigner", designerName.getText().toString());
+                addBookMap.put("BookCategory",s1.getSelectedItem().toString());
+                addBookMap.put("BookSubCategory",s2.getSelectedItem().toString());
+
+
+                pushKEY = databaseReference.push().getKey();
+                addBookMap.put("BookId",pushKEY);
+
+
+
+
+
+
+
+
+
 
 
             }
     }
+
+    public void uploadImage(Uri uri, int count, final int imagesCount)
+    {
+
+        final int count11 = count+1;
+
+
+        final StorageReference reference=mStorageRef.child("image"+Integer.toString(count)+"."+getExtension(imageuri.get(count)));
+        reference.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                addImagesMap.put("Image"+count11,uri.toString());
+                                addBookMap.put("BookImage",addImagesMap.get("Image1"));
+                                Toasty.success(getContext(), "Book Added Successfully").show();
+                                if (count11 == imagesCount)
+                                {
+                                    FirebaseDatabase firebaseDatabase11 = FirebaseDatabase.getInstance();
+                                    DatabaseReference databaseReference11 = firebaseDatabase11.getReference();
+                                    DatabaseReference databaseReference12 = firebaseDatabase11.getReference();
+                                    databaseReference12.child("BookDetails").child(bookCategoryStr).child(bookSubCategoryStr).child(pushKEY).setValue(addBookMap);
+                                    databaseReference11.child("BookDetails").child(bookCategoryStr).child(bookSubCategoryStr).child(pushKEY).child("BookImages").setValue(addImagesMap);
+                                    Toasty.error(getContext(), "Book Added Successfully").show();
+                                    Intent i = new Intent(getActivity(), MainActivity.class);
+                                    startActivity(i);
+                                    getActivity().finish();
+                                }
+
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+
+                    }
+                });
+    }
+
 }
