@@ -350,7 +350,8 @@ public class AddBookFragment extends Fragment {
 
         if (bookNameStr.isEmpty() || bookDesignerNameStr.isEmpty() || priceStr.isEmpty() || descriptionStr.isEmpty() ) {
             Toasty.error(getContext(), "Enter Required Details").show();
-        }else
+        }
+        else
             {
                 for (int i=0;i<imageuri.size();i++)
                 {

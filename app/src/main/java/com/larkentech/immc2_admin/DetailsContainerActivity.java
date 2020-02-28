@@ -46,7 +46,13 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 transaction2.commit();
                 break;
 
+            case "Orders":
+                FragmentManager manager3 = getSupportFragmentManager();
+                OrdersFragment ordersFragment = new OrdersFragment();
+                FragmentTransaction transaction3 = manager3.beginTransaction();
+                transaction3.replace(R.id.detailsActivityContainer,ordersFragment);
+                transaction3.commit();
+                break;
         }
-
     }
 }
