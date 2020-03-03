@@ -75,7 +75,7 @@ public class OrdersFragment extends Fragment {
                     databaseReference.child(ds.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Query query = databaseReference1.orderByChild("OrderDate");
+
                                 OrderModal modal = dataSnapshot.getValue(OrderModal.class);
                                 orderAdapter.add(modal);
                         }

@@ -2,7 +2,6 @@ package com.larkentech.immc2_admin;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
