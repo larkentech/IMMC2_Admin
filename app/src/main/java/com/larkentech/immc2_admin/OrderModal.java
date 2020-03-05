@@ -8,26 +8,24 @@ public class OrderModal {
     private String FinalPrice;
     private String Name;
     private String OrderDate;
-    private String OrderCount;
+    private String ItemsCount;
     private String PhoneNumber;
     private String TxnID;
-
 
     public OrderModal() {
     }
 
-    public OrderModal(String address, String bookId, String bookName, String finalPrice, String name, String orderCount, String phoneNumber, String txnID, String orderDate) {
+    public OrderModal(String address, String bookId, String bookName, String finalPrice, String name, String orderDate, String itemsCount, String phoneNumber, String txnID) {
         Address = address;
         BookId = bookId;
         BookName = bookName;
         FinalPrice = finalPrice;
         Name = name;
-        OrderCount = orderCount;
         OrderDate = orderDate;
+       ItemsCount = itemsCount;
         PhoneNumber = phoneNumber;
         TxnID = txnID;
     }
-
 
     public String getAddress() {
         return Address;
@@ -69,13 +67,14 @@ public class OrderModal {
         Name = name;
     }
 
-    public String getOrderCount() {
-        return OrderCount;
+    public String getOrderDate() {
+        return OrderDate;
     }
 
-    public void setOrderCount(String orderCount) {
-        OrderCount = orderCount;
+    public void setOrderDate(String orderDate) {
+        OrderDate = orderDate;
     }
+
 
     public String getPhoneNumber() {
         return PhoneNumber;
@@ -93,11 +92,11 @@ public class OrderModal {
         TxnID = txnID;
     }
 
-    public String getOrderDate() {
-        return OrderDate;
+    public String getItemsCount() {
+        return ItemsCount;
     }
 
-    public void setOrderDate(String orderDate) {
-        OrderDate = orderDate;
+    public void setItemsCount(String itemsCount) {
+        ItemsCount = itemsCount;
     }
 }

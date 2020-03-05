@@ -3,12 +3,14 @@ package com.larkentech.immc2_admin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     CardView editBook;
     CardView deleteBook;
     CardView orders;
-    CardView transaction;
+    Button signout;
     CardView feedback;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -36,10 +38,13 @@ public class MainActivity extends AppCompatActivity {
         editBook = (CardView) findViewById(R.id.editBook);
         deleteBook = (CardView) findViewById(R.id.deleteBook);
         orders = (CardView) findViewById(R.id.orders);
-        transaction = (CardView) findViewById(R.id.transaction);
         feedback = (CardView) findViewById(R.id.feedback);
 
         admiLoginId = findViewById(R.id.adminLoginId);
+
+        signout = (Button) findViewById(R.id.signOut);
+
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("AdminCredentials");
@@ -82,12 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        transaction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openTransaction();
-            }
-        });
+
 
         feedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 openFeedback();
             }
         });
+
 
 
     }
@@ -126,14 +127,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openTransaction() {
-        Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
-        intent.putExtra("Category","Transaction");
-        startActivity(intent);
-    }
-
     private void openFeedback() { Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
         intent.putExtra("Category","Feedback");
         startActivity(intent);
     }
+
 }

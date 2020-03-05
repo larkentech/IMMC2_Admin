@@ -42,7 +42,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(adminLoginId.length() == 0 || adminPassword.length() ==0 )
                 {
                     Toast.makeText(getApplicationContext(),"Please Try Again",Toast.LENGTH_LONG).show();
-                }else{
+                }
+                else{
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference databaseReference = firebaseDatabase.getReference().child("AdminCredentials");
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -56,7 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if (adminPassword.compareToIgnoreCase(pwd1) != 0){
 
                                     Toast.makeText(getApplicationContext(),"Invalid Password. Try Again",Toast.LENGTH_LONG).show();
-                                }else{
+                                }
+                                else{
                                     Intent i = new Intent(LoginActivity.this,MainActivity.class);
                                     startActivity(i);
                                     finish();
