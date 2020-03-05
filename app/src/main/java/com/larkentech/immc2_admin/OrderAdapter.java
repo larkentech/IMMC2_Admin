@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -31,7 +32,11 @@ public class OrderAdapter extends ArrayAdapter<OrderModal> {
 
     }
 
-
+    @Nullable
+    @Override
+    public OrderModal getItem(int position) {
+        return super.getItem(getCount() - position - 1);
+    }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 

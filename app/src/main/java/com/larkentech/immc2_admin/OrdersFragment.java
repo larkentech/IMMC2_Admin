@@ -67,7 +67,7 @@ public class OrdersFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("OrderDetails");
 
-        databaseReference.orderByChild("OrderDate").addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
