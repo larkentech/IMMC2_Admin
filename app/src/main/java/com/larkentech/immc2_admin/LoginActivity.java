@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,27 +26,22 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     String adminLoginId;
     String adminPassword;
-    private static final String SHARED_PREFS = "Myprefs";
-    private static final String KEY_REMEMBER = "remember";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_PASS = "password";
+
+    SharedPreferences userSharedPref;
+    SharedPreferences.Editor myEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userSharedPref = getSharedPreferences("UserPref", Context.MODE_PRIVATE);
+        myEdit = userSharedPref.edit();
+
         setContentView(R.layout.activity_login);
 
-        loginId = findViewById(R.id.loginId);
+        loginId = (EditText) findViewById(R.id.loginId);
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginBtn);
-
-
-
-        final SharedPreferences sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedpreferences.edit();
-
-       loginId.setText(sharedpreferences.getString(KEY_USERNAME,""));
-       password.setText(sharedpreferences.getString(KEY_PASS,""));
-
 
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"Invalid Password. Try Again",Toast.LENGTH_LONG).show();
                                 }
                                 else{
+                                    myEdit.putString("loginId",loginId.getText().toString().trim());
+                                    myEdit.commit();
+                                    Log.d("LoginActivity","loginId:"+userSharedPref.getString("loginId",null));
                                     Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                                    editor.putString("KEY_USERNAME", "value");
-                                    editor.putString("KEY_PASS", "value");
-                                    editor.apply();
                                     startActivity(i);
                                     finish();
                                 }

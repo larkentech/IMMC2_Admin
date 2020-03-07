@@ -1,12 +1,15 @@
 package com.larkentech.immc2_admin;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -95,14 +98,17 @@ public class MainActivity extends AppCompatActivity {
                 openFeedback();
             }
         });
-
-
-
+        signout.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                deleteSharedPreferences("UserPref");
+                Intent i = new Intent(new Activity(), SplashActivity.class);
+                startActivity(i);
+                new Activity().finish();
+            }
+        });
     }
-
-
-
-
     public void openAddBook(){
         Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
         intent.putExtra("Category","AddBook");
