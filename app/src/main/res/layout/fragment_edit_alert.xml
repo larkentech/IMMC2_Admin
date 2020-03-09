@@ -1,211 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".EditAlertFragment"
     android:background="#EDEBEB">
 
-    <HorizontalScrollView
-        android:scrollbars="none"
-        android:layout_marginTop="20dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard1"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard2"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard3"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard4"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard5"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard6"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard7"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <EditText
+            android:id="@+id/bookName"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_width="300dp"
+            android:hint="Book Name"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/designerName"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:hint="Designer Name"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/categorySpinner"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:hint="Category"
+            android:padding="10dp"
+            android:textSize="20sp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:entries="@array/book_category"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard1"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
+        <EditText
+            android:id="@+id/subCategorySpinner"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:hint="Sub-Category"
 
-                <ImageView
-                    android:id="@+id/bookImage1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
+            android:layout_height="40dp"/>
 
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard2"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
+        <EditText
+            android:id="@+id/bookPrice"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:hint="Price in Rs."
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:id="@+id/bookImage2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
+        <EditText
+            android:id="@+id/bookDesc"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:hint="Description"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_height="140dp"/>
 
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard3"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
+        <Button
+            android:id="@+id/update"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Update changes"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/latoblack"
+            android:background="@drawable/button_shape"/>
 
-                <ImageView
-                    android:id="@+id/bookImage3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard4"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
-
-                <ImageView
-                    android:id="@+id/bookImage4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard5"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
-
-                <ImageView
-                    android:id="@+id/bookImage5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard6"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
-
-                <ImageView
-                    android:id="@+id/bookImage6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/addPhotoCard7"
-                android:layout_marginStart="20dp"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="10dp"
-                android:elevation="3dp">
-
-                <ImageView
-                    android:id="@+id/bookImage7"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_photo"/>
-
-            </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
-        </LinearLayout>
-    </HorizontalScrollView>
 
-    <EditText
-        android:id="@+id/bookName"
-        android:background="@drawable/edit_text_shape1"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_width="300dp"
-        android:hint="Book Name"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/designerName"
-        android:background="@drawable/edit_text_shape1"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_width="300dp"
-        android:hint="Designer Name"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/categorySpinner"
-        android:background="@drawable/edit_text_shape1"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_width="300dp"
-        android:hint="Category"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"
-        android:entries="@array/book_category"/>
-
-    <EditText
-        android:id="@+id/subCategorySpinner"
-        android:background="@drawable/edit_text_shape1"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_width="300dp"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:hint="Sub-Category"
-
-        android:layout_height="40dp"/>
-
-    <EditText
-        android:id="@+id/bookPrice"
-        android:background="@drawable/edit_text_shape1"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_width="300dp"
-        android:hint="Price in Rs."
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/bookDesc"
-        android:background="@drawable/edit_text_shape1"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_width="300dp"
-        android:hint="Description"
-        android:padding="10dp"
-        android:textSize="20sp"
-        android:layout_height="140dp"/>
-
-    <Button
-        android:id="@+id/update"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Update changes"
-        android:textColor="#ffffff"
-        android:fontFamily="@font/latoblack"
-        android:background="@drawable/button_shape"/>
-
-</LinearLayout>
+</ScrollView>
