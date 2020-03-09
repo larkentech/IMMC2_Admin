@@ -84,9 +84,6 @@ public class BookAdapter extends ArrayAdapter<BookModal> {
                 alertDialog.setArguments(args);
                 alertDialog.show(fm, "fragment_alert");
 
-
-
-
             }
         });
 
