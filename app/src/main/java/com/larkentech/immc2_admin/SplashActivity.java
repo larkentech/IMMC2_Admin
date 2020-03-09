@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,15 +32,15 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 if (haveNetworkConnection())
                 {
-
-
                     if (adminid != null )
                     {
+                        Log.v("TAG","SharedPref2:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginId",null));
                         Intent i = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(i);
                         finish();
                     }
                     else {
+                        Log.v("TAG","SharedPref3:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginId",null));
                         Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                         startActivity(i);
                         finish();

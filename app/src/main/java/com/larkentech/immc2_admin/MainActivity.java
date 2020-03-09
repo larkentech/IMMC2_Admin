@@ -2,8 +2,10 @@ package com.larkentech.immc2_admin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,11 +33,18 @@ public class MainActivity extends AppCompatActivity {
     CardView feedback;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    SharedPreferences myPref;
+    SharedPreferences.Editor myEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.v("TAG","SharedPref1:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginId",null));
+
+        myPref = getSharedPreferences("UserPref",MODE_PRIVATE);
+        myEdit = myPref.edit();
 
         addBook = (CardView) findViewById(R.id.addBook);
         editBook = (CardView) findViewById(R.id.editBook);
@@ -102,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                deleteSharedPreferences("UserPref");
-                Intent i = new Intent(new Activity(), SplashActivity.class);
+                myEdit.putString("loginId",null);
+                myEdit.commit();
+                Intent i = new Intent(MainActivity.this, SplashActivity.class);
                 startActivity(i);
-                new Activity().finish();
+                finish();
+                Log.v("TAG","SharedPref:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginId",null));
             }
         });
     }
