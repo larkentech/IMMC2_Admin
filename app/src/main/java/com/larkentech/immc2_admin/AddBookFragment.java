@@ -24,8 +24,13 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -59,18 +64,26 @@ public class AddBookFragment extends Fragment {
 
     EditText bookName;
     EditText designerName;
-    EditText price;
+    EditText price1;
+    EditText price2;
+    EditText price3;
     EditText description;
 
     String bookNameStr;
     String bookDesignerNameStr;
-    String priceStr;
+    String price1Str;
+    String price2Str;
+    String price3Str;
     String descriptionStr;
     String bookCategoryStr;
     String bookSubCategoryStr;
 
     Button createBook;
+    Button addCategory;
+    Button addSubCategory;
+
     FirebaseDatabase firebaseDatabase;
+    DatabaseReference firebaseDatabase1;
     DatabaseReference databaseReference;
     DatabaseReference databaseReference1;
 
@@ -100,6 +113,9 @@ public class AddBookFragment extends Fragment {
 
 
     int flag;
+
+    private List<String> categoryList = new ArrayList<String>();
+    private List<String> subCategoryList = new ArrayList<String>();
 
 
     public AddBookFragment() {
@@ -134,13 +150,31 @@ public class AddBookFragment extends Fragment {
         addPhotoCard7 = (CardView) view.findViewById(R.id.addPhotoCard7);
 
         bookName = (EditText) view.findViewById(R.id.bookName);
-        price = (EditText) view.findViewById(R.id.price);
+        price1 = (EditText) view.findViewById(R.id.price1);
+        price2 = (EditText) view.findViewById(R.id.price2);
+        price3 = (EditText) view.findViewById(R.id.price3);
         description = (EditText) view.findViewById(R.id.description);
         designerName = (EditText) view .findViewById(R.id.designerName);
 
 
         createBook = (Button) view.findViewById(R.id.createBook);
+        addCategory = (Button) view.findViewById(R.id.addCategory);
+        addSubCategory = (Button) view.findViewById(R.id.addSubCategory);
 
+
+        addCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddCategory();
+            }
+        });
+
+        addSubCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddSubCategory();
+            }
+        });
 
         bookImage1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,79 +242,55 @@ public class AddBookFragment extends Fragment {
 
         s1 = (Spinner) view.findViewById(R.id.categorySpinner);
         s2 = (Spinner)view.findViewById(R.id.subCategorySpinner);
+
+        firebaseDatabase1 = FirebaseDatabase.getInstance().getReference();
+        Query query = firebaseDatabase1.child("BookDetails");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+                    String categoryName = dataSnapshot1.getKey().toString();
+                    categoryList.add(categoryName);
+                }
+
+                ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,categoryList);
+                dataAdapter1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                s1.setAdapter(dataAdapter1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String sp1= String.valueOf(s1.getSelectedItem());
-                if (sp1.contentEquals("Engineering"))
-                {
-                    imagesCount = 7;
-                    List<String> list = new ArrayList<String>();
-                    list.add("CS");
-                    list.add("EC");
-                    list.add("ME");
-                    list.add("Chemical Engineering");
-                    list.add("Textile Engineering");
-                    list.add("EE");
-                    list.add("Mining Engineering");
-                    list.add("Instrumentation Engineering");
-                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,list);
-                    dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                    dataAdapter.notifyDataSetChanged();
-                    s2.setAdapter(dataAdapter);
-                    addPhotoCard5.setVisibility(View.VISIBLE);
-                    addPhotoCard6.setVisibility(View.VISIBLE);
-                    addPhotoCard7.setVisibility(View.VISIBLE);
-                }
-                if (sp1.contentEquals("MathsTheme"))
-                {
-                    List<String> list = new ArrayList<String>();
-                    list.add("AlgebraNoteBooks");
-                    list.add("ArithmeticNoteBooks");
-                    list.add("GeometryNoteBooks");
-                    list.add("TrigonometryNoteBooks");
-                    ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,list);
-                    dataAdapter2.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                    dataAdapter2.notifyDataSetChanged();
-                    s2.setAdapter(dataAdapter2);
-                    addPhotoCard5.setVisibility(View.GONE);
-                    addPhotoCard6.setVisibility(View.GONE);
-                    addPhotoCard7.setVisibility(View.GONE);
-                }
-                if (sp1.contentEquals("QuoteTheme"))
-                {
-                    List<String> list = new ArrayList<>();
-                    list.add("APJ NoteBooks");
-                    list.add("AlbertEinsteinQuoteSeries");
-                    list.add("BillGatesQuoteSeries");
-                    list.add("BuddhaQuoteSeries");
-                    list.add("ElonMuskQuoteSeries");
-                    list.add("RamanujanQuoteSeries");
-                    list.add("SteveJobsQuoteSeries");
-                    list.add("Subhash Chandra bose Notebooks");
-                    list.add("Vivekananda Notebooks");
-                    ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,list);
-                    dataAdapter3.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                    dataAdapter3.notifyDataSetChanged();
-                    s2.setAdapter(dataAdapter3);
-                    addPhotoCard5.setVisibility(View.GONE);
-                    addPhotoCard6.setVisibility(View.GONE);
-                    addPhotoCard7.setVisibility(View.GONE);
-                }
-                if (sp1.contentEquals("ScienceTheme"))
-                {
-                    List<String> list = new ArrayList<>();
-                    list.add("BiologyNoteBooks");
-                    list.add("PhysicsNoteBooks");
-                    list.add("ChemistryNoteBooks");
-                    ArrayAdapter<String> dataAdapter4 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,list);
-                    dataAdapter4.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                    dataAdapter4.notifyDataSetChanged();
-                    s2.setAdapter(dataAdapter4);
-                    addPhotoCard5.setVisibility(View.GONE);
-                    addPhotoCard6.setVisibility(View.GONE);
-                    addPhotoCard7.setVisibility(View.GONE);
-                }
+                Query query2 = firebaseDatabase1.child("BookDetails").child(sp1);
+                query2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+                            String subCategoryName = dataSnapshot1.getKey().toString();
+                            subCategoryList.add(subCategoryName);
+                        }
+
+                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,subCategoryList);
+                        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                        dataAdapter.notifyDataSetChanged();
+                        s2.setAdapter(dataAdapter);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -288,6 +298,7 @@ public class AddBookFragment extends Fragment {
 
             }
         });
+
     }
     public void openBookImage(){
         Intent intent = new Intent();
@@ -343,12 +354,14 @@ public class AddBookFragment extends Fragment {
     {
         bookNameStr = bookName.getText().toString();
         bookDesignerNameStr = designerName.getText().toString();
-        priceStr = price.getText().toString();
+        price1Str = price1.getText().toString();
+        price2Str = price2.getText().toString();
+        price3Str = price3.getText().toString();
         descriptionStr = description.getText().toString();
         bookCategoryStr = s1.getSelectedItem().toString();
         bookSubCategoryStr = s2.getSelectedItem().toString();
 
-        if (bookNameStr.isEmpty() || bookDesignerNameStr.isEmpty() || priceStr.isEmpty() || descriptionStr.isEmpty() ) {
+        if (bookNameStr.isEmpty() || bookDesignerNameStr.isEmpty() || price1Str.isEmpty() || descriptionStr.isEmpty() ) {
             Toasty.error(getContext(), "Enter Required Details").show();
         }
         else
@@ -361,7 +374,9 @@ public class AddBookFragment extends Fragment {
 
                 databaseReference = firebaseDatabase.getReference();
                 addBookMap.put("BookName", bookName.getText().toString());
-                addBookMap.put("BookPrice", price.getText().toString());
+                addBookMap.put("BookPrice160Pages", price1.getText().toString());
+                addBookMap.put("BookPrice200Pages", price1.getText().toString());
+                addBookMap.put("BookPrice240Pages", price1.getText().toString());
                 addBookMap.put("BookDesc", description.getText().toString());
                 addBookMap.put("BookDesigner", designerName.getText().toString());
                 addBookMap.put("BookCategory",s1.getSelectedItem().toString());
@@ -370,16 +385,6 @@ public class AddBookFragment extends Fragment {
 
                 pushKEY = databaseReference.push().getKey();
                 addBookMap.put("BookId",pushKEY);
-
-
-
-
-
-
-
-
-
-
 
             }
     }
@@ -427,6 +432,18 @@ public class AddBookFragment extends Fragment {
 
                     }
                 });
+    }
+
+    public void openAddCategory(){
+        Intent intent = new Intent(getContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","AddCategory");
+        startActivity(intent);
+    }
+
+    public void openAddSubCategory(){
+        Intent intent = new Intent(getContext(),DetailsContainerActivity.class);
+        intent.putExtra("Category","AddSubCategory");
+        startActivity(intent);
     }
 
 }

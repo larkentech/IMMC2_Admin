@@ -59,6 +59,15 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 transaction4.replace(R.id.detailsActivityContainer,feedbackFragment);
                 transaction4.commit();
                 break;
+
+            case "AddCategory":
+                FragmentManager manager5 = getSupportFragmentManager();
+                AddCategoryFragment addCategoryFragment = new AddCategoryFragment();
+                FragmentTransaction transaction5 = manager5.beginTransaction();
+                transaction5.replace(R.id.detailsActivityContainer,addCategoryFragment);
+                transaction5.commit();
+                break;
+
         }
     }
 }

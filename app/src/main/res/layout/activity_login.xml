@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Members Login"
-        android:fontFamily="@font/latoblack"
+        android:fontFamily="@font/montserrat_black"
         android:textSize="18dp"
         android:padding="10dp"
         android:textColor="#000000"/>
@@ -33,6 +33,7 @@
         android:hint="LoginID"
         android:textSize="20sp"
         android:padding="10dp"
+        android:fontFamily="@font/montserrat_regular"
         android:background="@drawable/edit_text_shape"
         android:layout_height="wrap_content"/>
 
@@ -44,6 +45,7 @@
         android:hint="Password"
         android:padding="10dp"
         android:textSize="20sp"
+        android:fontFamily="@font/montserrat_regular"
         android:background="@drawable/edit_text_shape"
         android:layout_height="wrap_content"/>
 
@@ -53,7 +55,7 @@
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:text="LOGIN"
-        android:fontFamily="@font/latoblack"
+        android:fontFamily="@font/montserrat_black"
         android:textSize="20sp"
         android:textColor="#ffffff"
         android:background="@drawable/button_shape"

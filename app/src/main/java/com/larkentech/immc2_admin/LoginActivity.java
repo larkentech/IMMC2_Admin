@@ -48,9 +48,10 @@ public class LoginActivity extends AppCompatActivity {
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.hasChild(adminLoginId))
+                            String userName = dataSnapshot.child("loginID").getValue(String.class);
+                            if(adminLoginId.compareToIgnoreCase(userName) != 0)
                             {
-                                Toast.makeText(getApplicationContext(),"Invalid User",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Invalid User ID",Toast.LENGTH_LONG).show();
                             }else{
                                 String pwd1 = dataSnapshot.child("password").getValue(String.class);
                                 if (adminPassword.compareToIgnoreCase(pwd1) != 0){
