@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 openFeedback();
             }
         });
+
         signout.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -148,5 +149,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("Category","Feedback");
         startActivity(intent);
     }
-
 }
