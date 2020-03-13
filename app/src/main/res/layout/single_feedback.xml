@@ -2,45 +2,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="1dp"
+    android:background="@android:color/darker_gray">
 
 
     <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:id="@+id/feedbackCard"
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginTop="1dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-          android:layout_margin="10dp"
-            >
+            android:layout_margin="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Great!!!"
                 android:fontFamily="@font/latoblack"
                 android:layout_marginBottom="6dp"
                 android:textSize="20sp"
-                android:id="@+id/feeling"/>
+                android:textColor="@android:color/black"
+                android:id="@+id/feeling"
+                android:textStyle="italic"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_below="@+id/feeling"
                 android:id="@+id/feedbackMsg"
                 android:fontFamily="@font/lato_regular"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:text="dfshamxucmcriycam uydaiuh  ahhf uhuhf iuhydsavscdf rweadacwead uah uiu fuiudh fdhiufdsa diu"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
-
 </LinearLayout>

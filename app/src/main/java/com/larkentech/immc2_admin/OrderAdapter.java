@@ -58,7 +58,7 @@ public class OrderAdapter extends ArrayAdapter<OrderModal> {
 
         BookName.setText(orderModal.getBookName());
         Address.setText(orderModal.getAddress());
-        FinalPrice.setText("Rs." + orderModal.getFinalPrice() + "/- Paid");
+        FinalPrice.setText(orderModal.getFinalPrice() + "/- Paid");
         ItemsCount.setText("Qty: " + orderModal.getItemsCount());
         PhoneNumber.setText("Ph: "+ orderModal.getPhoneNumber());
         OrderDate.setText(orderModal.getOrderDate());
