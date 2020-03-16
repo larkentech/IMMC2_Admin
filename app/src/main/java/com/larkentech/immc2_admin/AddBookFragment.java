@@ -1,7 +1,9 @@
 package com.larkentech.immc2_admin;
 
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -49,6 +51,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class AddBookFragment extends Fragment {
 
+    Context context;
+
     Spinner s1,s2;
     ImageView bookImage1;
     ImageView bookImage2;
@@ -91,6 +95,7 @@ public class AddBookFragment extends Fragment {
 
     List<Uri> imageuri = new ArrayList<>();
 
+
     String bookPhoto1;
     String bookPhoto2;
     String bookPhoto3;
@@ -127,7 +132,9 @@ public class AddBookFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_book, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_book, container, false);
+        context = view.getContext();
+        return view;
 
     }
 
@@ -256,6 +263,8 @@ public class AddBookFragment extends Fragment {
                 ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,categoryList);
                 dataAdapter1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 s1.setAdapter(dataAdapter1);
+
+
             }
 
             @Override
@@ -265,10 +274,27 @@ public class AddBookFragment extends Fragment {
         });
 
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                subCategoryList.clear();
+
                 String sp1= String.valueOf(s1.getSelectedItem());
+
+                if (sp1.equals("Engineering") )
+                {
+                    addPhotoCard5.setVisibility(View.VISIBLE);
+                    addPhotoCard6.setVisibility(View.VISIBLE);
+                    addPhotoCard7.setVisibility(View.VISIBLE);
+                }
+                else{
+                    addPhotoCard5.setVisibility(View.GONE);
+                    addPhotoCard6.setVisibility(View.GONE);
+                    addPhotoCard7.setVisibility(View.GONE);
+                }
+
                 Query query2 = firebaseDatabase1.child("BookDetails").child(sp1);
                 query2.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -298,6 +324,29 @@ public class AddBookFragment extends Fragment {
 
             }
         });
+
+     /*
+
+        FirebaseDatabase firebaseDatabase2 = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference2 = firebaseDatabase2.getReference().child("BookDetails");
+        HashMap<String,String> engMap = new HashMap<>();
+        engMap.put("BookName","How to Crack Test of Arithmetic");
+        engMap.put("BookDesigner","Hemanth");
+        engMap.put("BookPrice160Pages","450");
+        engMap.put("BookPrice200Pages","500");
+        engMap.put("BookPrice240Pages","550");
+        engMap.put("BookSubCategory","Maths");
+        engMap.put("BookCategory","OtherCategories");
+        engMap.put("BookDesc","This is a reproduction of a classic text optimised for kindle devices. " +
+                "We have endeavoured to create this version as close to the original artefact as possible.");
+        engMap.put("BookImage","https://firebasestorage.googleapis.com/v0/b/iammc2-f61a0.appspot.com/o/Arithmemtic.jpg?alt=media&token=29e00124-c5ff-4eec-a237-479ab1b237de");
+        pushKEY = databaseReference2.push().getKey();
+        engMap.put("BookID",pushKEY);
+        databaseReference2.child("OtherCategories").child("Maths").push().setValue(engMap);
+
+      */
+
+
 
     }
     public void openBookImage(){
@@ -432,18 +481,77 @@ public class AddBookFragment extends Fragment {
 
                     }
                 });
+
+
     }
 
     public void openAddCategory(){
-        Intent intent = new Intent(getContext(),DetailsContainerActivity.class);
-        intent.putExtra("Category","AddCategory");
-        startActivity(intent);
+        final AlertDialog.Builder  alert = new AlertDialog.Builder(context);
+        View mView = getLayoutInflater().inflate(R.layout.add_category_dialog,null);
+        final EditText add_category = (EditText) mView.findViewById(R.id.addNewCategory);
+        Button addCategoryBtn = (Button) mView.findViewById(R.id.addCategoryBtn);
+        Button cancelCategoryBtn = (Button) mView.findViewById(R.id.cancelCategoryBtn);
+        alert.setView(mView);
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        addCategoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (add_category == null){
+                    Toasty.error(getContext(),"Enter Category").show();
+                }else{
+                    categoryList.add(add_category.getText().toString());
+                    Toasty.success(getContext(),"Category Added").show();
+                }
+            }
+        });
+
+        cancelCategoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+
     }
 
     public void openAddSubCategory(){
-        Intent intent = new Intent(getContext(),DetailsContainerActivity.class);
-        intent.putExtra("Category","AddSubCategory");
-        startActivity(intent);
+
+        final AlertDialog.Builder  alert = new AlertDialog.Builder(context);
+        View mView = getLayoutInflater().inflate(R.layout.add_category_dialog,null);
+        final EditText add_sub_category = (EditText) mView.findViewById(R.id.addNewSubCategory);
+        Button addSubCategoryBtn = (Button) mView.findViewById(R.id.addSubCategoryBtn);
+        Button cancelSubCategoryBtn = (Button) mView.findViewById(R.id.cancelSubCategoryBtn);
+        alert.setView(mView);
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        addSubCategoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (add_sub_category == null){
+                    Toasty.error(getContext(),"Enter Sub Category").show();
+                }else{
+                    subCategoryList.add(add_sub_category.getText().toString());
+                    Toasty.success(getContext(),"Sub Category Added").show();
+                }
+            }
+        });
+
+        cancelSubCategoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+        
     }
+
+
 
 }

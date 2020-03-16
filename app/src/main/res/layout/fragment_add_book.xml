@@ -231,6 +231,7 @@
                 android:layout_gravity="center"/>
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/price1"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -258,6 +259,7 @@
                 android:layout_gravity="center"/>
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/price2"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -286,6 +288,7 @@
                 android:layout_gravity="center"/>
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/price3"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
