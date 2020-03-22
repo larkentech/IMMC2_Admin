@@ -135,25 +135,25 @@
 
         <EditText
             android:id="@+id/bookName"
-            android:background="@drawable/edit_text_shape1"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_width="300dp"
+            android:layout_marginTop="24dp"
             android:hint="Book Name"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="10dp"
-            android:textSize="20sp"
-            android:layout_height="wrap_content"/>
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/designerName"
-            android:background="@drawable/edit_text_shape1"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_width="300dp"
             android:hint="Designer Name"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="10dp"
-            android:textSize="20sp"
-            android:layout_height="wrap_content"/>
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/categorySpinner"
@@ -179,27 +179,99 @@
 
             android:layout_height="40dp"/>
 
-        <EditText
-            android:id="@+id/bookPrice"
-            android:background="@drawable/edit_text_shape1"
-            android:layout_gravity="center"
+        <LinearLayout
             android:layout_marginTop="16dp"
-            android:layout_width="300dp"
-            android:hint="Price in Rs."
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="160 pages- Rs."
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/price1"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Price in Rs."
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200 pages- Rs."
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/price2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Price in Rs."
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="240 pages- Rs."
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/price3"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Price in Rs."
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/bookDesc"
-            android:background="@drawable/edit_text_shape1"
+            android:id="@+id/description"
+            android:layout_width="340dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_width="300dp"
             android:hint="Description"
+            android:gravity="top|left"
+            android:background="@drawable/edit_text_shape1"
+            android:fontFamily="@font/montserrat_regular"
             android:padding="10dp"
-            android:textSize="20sp"
-            android:layout_height="140dp"/>
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/update"

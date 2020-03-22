@@ -2,7 +2,9 @@ package com.larkentech.immc2_admin;
 
 public class BookModal {
     private String BookName;
-    private String BookPrice;
+    private String BookPrice160Pages;
+    private String BookPrice200Pages;
+    private String BookPrice240Pages;
     private String BookDesc;
     private String BookImage;
     private String BookDesigner;
@@ -13,9 +15,11 @@ public class BookModal {
     public BookModal() {
     }
 
-    public BookModal(String bookName, String bookPrice, String bookDesc, String bookImage, String bookDesigner, String bookCategory, String bookId, String bookSubCategory) {
+    public BookModal(String bookName, String bookPrice160Pages, String bookPrice200Pages, String bookPrice240Pages, String bookDesc, String bookImage, String bookDesigner, String bookCategory, String bookId, String bookSubCategory) {
         BookName = bookName;
-        BookPrice = bookPrice;
+        BookPrice160Pages = bookPrice160Pages;
+        BookPrice200Pages = bookPrice200Pages;
+        BookPrice240Pages = bookPrice240Pages;
         BookDesc = bookDesc;
         BookImage = bookImage;
         BookDesigner = bookDesigner;
@@ -32,12 +36,28 @@ public class BookModal {
         BookName = bookName;
     }
 
-    public String getBookPrice() {
-        return BookPrice;
+    public String getBookPrice160Pages() {
+        return BookPrice160Pages;
     }
 
-    public void setBookPrice(String bookPrice) {
-        BookPrice = bookPrice;
+    public void setBookPrice160Pages(String bookPrice160Pages) {
+        BookPrice160Pages = bookPrice160Pages;
+    }
+
+    public String getBookPrice200Pages() {
+        return BookPrice200Pages;
+    }
+
+    public void setBookPrice200Pages(String bookPrice200Pages) {
+        BookPrice200Pages = bookPrice200Pages;
+    }
+
+    public String getBookPrice240Pages() {
+        return BookPrice240Pages;
+    }
+
+    public void setBookPrice240Pages(String bookPrice240Pages) {
+        BookPrice240Pages = bookPrice240Pages;
     }
 
     public String getBookDesc() {

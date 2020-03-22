@@ -52,6 +52,7 @@ import static android.app.Activity.RESULT_OK;
 public class AddBookFragment extends Fragment {
 
     Context context;
+    Context context1;
 
     Spinner s1,s2;
     ImageView bookImage1;
@@ -83,8 +84,8 @@ public class AddBookFragment extends Fragment {
     String bookSubCategoryStr;
 
     Button createBook;
-    Button addCategory;
-    Button addSubCategory;
+    ImageView addCategory;
+    ImageView addSubCategory;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference firebaseDatabase1;
@@ -94,15 +95,6 @@ public class AddBookFragment extends Fragment {
     public static final int IMAGE_CODE=1;
 
     List<Uri> imageuri = new ArrayList<>();
-
-
-    String bookPhoto1;
-    String bookPhoto2;
-    String bookPhoto3;
-    String bookPhoto4;
-    String bookPhoto5;
-    String bookPhoto6;
-    String bookPhoto7;
 
     StorageReference mStorageRef;
     FirebaseStorage storage;
@@ -134,6 +126,7 @@ public class AddBookFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_book, container, false);
         context = view.getContext();
+        context1 = view.getContext();
         return view;
 
     }
@@ -165,8 +158,8 @@ public class AddBookFragment extends Fragment {
 
 
         createBook = (Button) view.findViewById(R.id.createBook);
-        addCategory = (Button) view.findViewById(R.id.addCategory);
-        addSubCategory = (Button) view.findViewById(R.id.addSubCategory);
+        addCategory = (ImageView) view.findViewById(R.id.addCategory);
+        addSubCategory = (ImageView) view.findViewById(R.id.addSubCategory);
 
 
         addCategory.setOnClickListener(new View.OnClickListener() {
@@ -503,6 +496,7 @@ public class AddBookFragment extends Fragment {
                 }else{
                     categoryList.add(add_category.getText().toString());
                     Toasty.success(getContext(),"Category Added").show();
+                    alertDialog.dismiss();
                 }
             }
         });
@@ -520,14 +514,14 @@ public class AddBookFragment extends Fragment {
 
     public void openAddSubCategory(){
 
-        final AlertDialog.Builder  alert = new AlertDialog.Builder(context);
-        View mView = getLayoutInflater().inflate(R.layout.add_category_dialog,null);
-        final EditText add_sub_category = (EditText) mView.findViewById(R.id.addNewSubCategory);
-        Button addSubCategoryBtn = (Button) mView.findViewById(R.id.addSubCategoryBtn);
-        Button cancelSubCategoryBtn = (Button) mView.findViewById(R.id.cancelSubCategoryBtn);
-        alert.setView(mView);
-        final AlertDialog alertDialog = alert.create();
-        alertDialog.setCanceledOnTouchOutside(false);
+        final AlertDialog.Builder  alert1 = new AlertDialog.Builder(context1);
+        View mView1 = getLayoutInflater().inflate(R.layout.sub_category_dialog,null);
+        final EditText add_sub_category = (EditText) mView1.findViewById(R.id.addNewSubCategory);
+        Button addSubCategoryBtn = (Button) mView1.findViewById(R.id.addSubCategoryBtn);
+        Button cancelSubCategoryBtn = (Button) mView1.findViewById(R.id.cancelSubCategoryBtn);
+        alert1.setView(mView1);
+        final AlertDialog alertDialog1 = alert1.create();
+        alertDialog1.setCanceledOnTouchOutside(false);
 
         addSubCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -537,6 +531,7 @@ public class AddBookFragment extends Fragment {
                 }else{
                     subCategoryList.add(add_sub_category.getText().toString());
                     Toasty.success(getContext(),"Sub Category Added").show();
+                    alertDialog1.dismiss();
                 }
             }
         });
@@ -544,12 +539,12 @@ public class AddBookFragment extends Fragment {
         cancelSubCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialog.dismiss();
+                alertDialog1.dismiss();
             }
         });
 
-        alertDialog.show();
-        
+        alertDialog1.show();
+
     }
 
 

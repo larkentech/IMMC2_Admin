@@ -9,7 +9,7 @@
         android:layout_marginStart="40dp"
         android:id="@+id/addNewSubCategory"
         android:layout_marginTop="20dp"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Enter Sub Category Name"/>
 

@@ -22,7 +22,6 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_shape1"
-            android:entries="@array/book_category"
             android:hint="Category"
             android:popupBackground="#ffffff"
             android:textSize="26sp"

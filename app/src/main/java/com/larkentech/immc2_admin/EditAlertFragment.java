@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +47,9 @@ public class EditAlertFragment extends DialogFragment {
 
     String bookName;
     String bookDesigner;
-    String bookPrice;
+    String bookPrice160Pages;
+    String bookPrice200Pages;
+    String bookPrice240Pages;
     String bookImage;
     String bookDesc;
 
@@ -53,7 +57,9 @@ public class EditAlertFragment extends DialogFragment {
     DatabaseReference databaseReference;
     TextView bookname;
     TextView bookdesc;
-    TextView bookprice;
+    TextView bookprice160Pages;
+    TextView bookprice200Pages;
+    TextView bookprice240Pages;
     TextView bookdesigner;
     TextView bookcategory;
     TextView booksubcategory;
@@ -85,7 +91,9 @@ public class EditAlertFragment extends DialogFragment {
 
         bookName = getArguments().getString("BookName");
         bookDesigner = getArguments().getString("BookDesigner");
-        bookPrice = getArguments().getString("BookPrice");
+        bookPrice160Pages = getArguments().getString("BookPrice160Pages");
+        bookPrice200Pages = getArguments().getString("BookPrice200Pages");
+        bookPrice240Pages = getArguments().getString("BookPrice240Pages");
         bookDesc = getArguments().getString("BookDesc");
         bookImage = getArguments().getString("BookImage");
 
@@ -102,8 +110,10 @@ public class EditAlertFragment extends DialogFragment {
 
         bookname = (TextView) view.findViewById(R.id.bookName);
         bookdesigner = (TextView) view.findViewById(R.id.designerName);
-        bookprice = (TextView) view.findViewById(R.id.bookPrice);
-        bookdesc = (TextView) view.findViewById(R.id.bookDesc);
+        bookprice160Pages = (TextView) view.findViewById(R.id.price1);
+        bookprice200Pages = (TextView) view.findViewById(R.id.price2);
+        bookprice240Pages = (TextView) view.findViewById(R.id.price3);
+        bookdesc = (TextView) view.findViewById(R.id.description);
         bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
         booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
         bookimage = (ImageView) view.findViewById(R.id.bookImage1);
@@ -116,7 +126,9 @@ public class EditAlertFragment extends DialogFragment {
         bookdesc.setText(bookDesc);
         bookcategory.setText(bookCategoryID);
         booksubcategory.setText(bookSubCategoryID);
-        bookprice.setText(bookPrice);
+        bookprice160Pages.setText(bookPrice160Pages);
+        bookprice200Pages.setText(bookPrice200Pages);
+        bookprice240Pages.setText(bookPrice240Pages);
         Glide
                 .with(getContext())
                 .load(bookImage)

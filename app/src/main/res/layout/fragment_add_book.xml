@@ -176,14 +176,13 @@
                 android:hint="Category"
                 android:textSize="18sp" />
 
-            <Button
+            <ImageView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
                 android:id="@+id/addCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Category"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:fontFamily="@font/montserrat_black"/>
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/add_category" />
 
         </LinearLayout>
 
@@ -203,15 +202,14 @@
                 android:hint="Sub-Category"
                 android:textSize="18sp" />
 
-            <Button
+            <ImageView
+
                 android:id="@+id/addSubCategory"
-                android:layout_marginTop="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add Sub-Category"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:fontFamily="@font/montserrat_black"/>
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/add_sub_category"/>
         </LinearLayout>
 
 
@@ -242,7 +240,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
@@ -269,8 +266,6 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_marginTop="16dp"

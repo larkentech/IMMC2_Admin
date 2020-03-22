@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class EditAdapter extends ArrayAdapter<BookModal> {
@@ -48,7 +50,9 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
         final BookModal bookModal = getItem(position);
 
         CardView selected = convertView.findViewById(R.id.editCard);
-        TextView BookPrice = convertView.findViewById(R.id.bookPrice);
+        TextView BookPrice160Pages = convertView.findViewById(R.id.bookPrice);
+        TextView BookPrice200Pages = convertView.findViewById(R.id.bookPrice1);
+        TextView BookPrice240Pages = convertView.findViewById(R.id.bookPrice2);
         TextView BooksName = convertView.findViewById(R.id.bookName);
         TextView BooksDesigner = convertView.findViewById(R.id.bookDesigner);
 
@@ -64,7 +68,9 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
                 .centerCrop()
                 .into(BookImage);
 
-        BookPrice.setText("Rs." + bookModal.getBookPrice() + "/-");
+        BookPrice160Pages.setText("160 Pages Rs." + bookModal.getBookPrice160Pages() + "/-");
+        BookPrice200Pages.setText("200 Pages Rs." + bookModal.getBookPrice200Pages() + "/-");
+        BookPrice240Pages.setText("240 Pages Rd." + bookModal.getBookPrice240Pages() + "/-");
         BooksName.setText(bookModal.getBookName());
 
         BooksDesigner.setText("Designed By "+bookModal.getBookDesigner());
@@ -77,7 +83,9 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
                 args.putString("BookImage", bookModal.getBookImage());
                 args.putString("BookName", bookModal.getBookName());
                 args.putString("BookDesigner", bookModal.getBookDesigner());
-                args.putString("BookPrice", bookModal.getBookPrice());
+                args.putString("BookPrice160Pages", bookModal.getBookPrice160Pages());
+                args.putString("BookPrice200Pages",bookModal.getBookPrice200Pages());
+                args.putString("BookPrice240Pages",bookModal.getBookPrice240Pages());
                 args.putString("BookDesc", bookModal.getBookDesc());
                 args.putString("BookCategory", bookModal.getBookCategory());
                 args.putString("BookSubCategory", bookModal.getBookSubCategory());

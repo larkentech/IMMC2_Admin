@@ -78,6 +78,33 @@
                 android:text="Rs. 480/-"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/bookPrice1"
+                android:layout_toEndOf="@id/itemImageCard"
+                android:layout_below="@id/bookPrice"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/latoblack"
+                android:text="Rs. 480/-"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/bookPrice2"
+                android:layout_toEndOf="@id/itemImageCard"
+                android:layout_below="@id/bookPrice1"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/latoblack"
+                android:text="Rs. 480/-"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
             <RatingBar
                 android:id="@+id/ratingBar"
                 style="@style/Widget.AppCompat.RatingBar.Small"
@@ -86,9 +113,9 @@
                 android:rating="4"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@id/itemImageCard"
-                android:layout_below="@id/bookPrice"
+                android:layout_below="@id/bookPrice2"
                 android:progressBackgroundTint="@color/colorPrimary"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:numStars="5"/>
             <ImageButton
                 android:layout_width="wrap_content"
