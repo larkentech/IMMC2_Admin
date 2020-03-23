@@ -36,7 +36,9 @@ public class DeleteAlertFragment extends DialogFragment {
 
     String bookName;
     String bookDesigner;
-    String bookPrice;
+    String bookPrice160Pages;
+    String bookPrice200Pages;
+    String bookPrice240Pages;
     String bookImage;
 
     FirebaseDatabase firebaseDatabase;
@@ -69,7 +71,7 @@ public class DeleteAlertFragment extends DialogFragment {
 
         bookName = getArguments().getString("BookName");
         bookDesigner = getArguments().getString("BookDesigner");
-        bookPrice = getArguments().getString("BookPrice");
+        bookPrice160Pages = getArguments().getString("BookPrice160Pages");
         bookImage = getArguments().getString("BookImage");
 
         bookID = getArguments().getString("BookID");
@@ -92,7 +94,7 @@ public class DeleteAlertFragment extends DialogFragment {
 
         bookname.setText(bookName);
         bookdesigner.setText(bookDesigner);
-        bookprice.setText(bookPrice);
+        bookprice.setText(bookPrice160Pages);
         Glide
                 .with(getContext())
                 .load(bookImage)
@@ -127,11 +129,13 @@ public class DeleteAlertFragment extends DialogFragment {
         {
             DatabaseReference databaseReference = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID);
             databaseReference.removeValue();
+            Toasty.success(getContext(),"Book Deleted").show();
         }
         else {
 
             DatabaseReference databaseReference1 = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookID);
             databaseReference1.removeValue();
+            Toasty.success(getContext(),"Book Deleted").show();
 
         }
 
