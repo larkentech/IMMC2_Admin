@@ -81,6 +81,9 @@ public class BookAdapter extends ArrayAdapter<BookModal> {
                 args.putString("BookPrice160Pages", bookModal.getBookPrice160Pages());
                 args.putString("BookPrice200Pages",bookModal.getBookPrice200Pages());
                 args.putString("BookPrice240Pages",bookModal.getBookPrice240Pages());
+                args.putString("BookID", bookModal.getBookID());
+                args.putString("BookCategory", bookModal.getBookCategory());
+                args.putString("BookSubCategory", bookModal.getBookSubCategory());
 
 
 

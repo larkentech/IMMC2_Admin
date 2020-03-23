@@ -60,7 +60,7 @@ public class DeleteBookFragment extends Fragment {
 
     BookAdapter deleteBookAdapter;
 
-    List<String> BookId;
+    List<String> BookID;
 
     Button getBook;
 
@@ -82,7 +82,7 @@ public class DeleteBookFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getBook = view.findViewById(R.id.getBook);
-        BookId = new ArrayList<>();
+        BookID = new ArrayList<>();
 
 
         s1 = (Spinner) view.findViewById(R.id.categorySpinner);
@@ -163,7 +163,7 @@ public class DeleteBookFragment extends Fragment {
 
                 selectedListView = view.findViewById(R.id.deleteListView);
                 List<BookModal> selectedList = new ArrayList<>();
-                deleteBookAdapter = new BookAdapter(getContext(), R.layout.single_delete_item, selectedList, BookId, getActivity());
+                deleteBookAdapter = new BookAdapter(getContext(), R.layout.single_delete_item, selectedList, BookID, getActivity());
                 selectedListView.setAdapter(deleteBookAdapter);
 
 
@@ -174,7 +174,7 @@ public class DeleteBookFragment extends Fragment {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         BookModal selectedBookModal = dataSnapshot.getValue(BookModal.class);
                         deleteBookAdapter.add(selectedBookModal);
-                        BookId.add(dataSnapshot.getKey());
+                        BookID.add(dataSnapshot.getKey());
                     }
 
                     @Override

@@ -46,7 +46,7 @@ public class EditBookFragment extends Fragment {
 
     EditAdapter editAdapter;
 
-    List<String> BookId;
+    List<String> BookID;
 
     Button getBook;
     public String bookID;
@@ -76,7 +76,7 @@ public class EditBookFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getBook = view.findViewById(R.id.getBook);
-        BookId = new ArrayList<>();
+        BookID = new ArrayList<>();
 
         s1 = (Spinner) view.findViewById(R.id.categorySpinner);
         s2 = (Spinner) view.findViewById(R.id.subCategorySpinner);
@@ -155,7 +155,7 @@ public class EditBookFragment extends Fragment {
 
                 selectedListView = view.findViewById(R.id.editListView);
                 List<BookModal> selectedList = new ArrayList<>();
-                editAdapter = new EditAdapter(getContext(), R.layout.single_edit_item, selectedList, BookId, getActivity());
+                editAdapter = new EditAdapter(getContext(), R.layout.single_edit_item, selectedList, BookID, getActivity());
                 selectedListView.setAdapter(editAdapter);
 
 
@@ -166,7 +166,7 @@ public class EditBookFragment extends Fragment {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         BookModal selectedBookModal = dataSnapshot.getValue(BookModal.class);
                         editAdapter.add(selectedBookModal);
-                        BookId.add(dataSnapshot.getKey());
+                        BookID.add(dataSnapshot.getKey());
                     }
 
                     @Override
