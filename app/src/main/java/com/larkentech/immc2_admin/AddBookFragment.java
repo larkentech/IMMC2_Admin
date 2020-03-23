@@ -380,6 +380,7 @@ public class AddBookFragment extends Fragment {
             case 7:
                 bookImage7.setImageURI(imageuri.get(6));
                 break;
+
         }
     }
 
@@ -417,8 +418,8 @@ public class AddBookFragment extends Fragment {
                 databaseReference = firebaseDatabase.getReference();
                 addBookMap.put("BookName", bookName.getText().toString());
                 addBookMap.put("BookPrice160Pages", price1.getText().toString());
-                addBookMap.put("BookPrice200Pages", price1.getText().toString());
-                addBookMap.put("BookPrice240Pages", price1.getText().toString());
+                addBookMap.put("BookPrice200Pages", price2.getText().toString());
+                addBookMap.put("BookPrice240Pages", price3.getText().toString());
                 addBookMap.put("BookDesc", description.getText().toString());
                 addBookMap.put("BookDesigner", designerName.getText().toString());
                 addBookMap.put("BookCategory",s1.getSelectedItem().toString());
@@ -491,10 +492,11 @@ public class AddBookFragment extends Fragment {
         addCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (add_category == null){
+                String add_category_str = add_category.getText().toString();
+                if (add_category_str.isEmpty()){
                     Toasty.error(getContext(),"Enter Category").show();
                 }else{
-                    categoryList.add(add_category.getText().toString());
+                    categoryList.add(add_category_str);
                     Toasty.success(getContext(),"Category Added").show();
                     alertDialog.dismiss();
                 }
@@ -519,17 +521,27 @@ public class AddBookFragment extends Fragment {
         final EditText add_sub_category = (EditText) mView1.findViewById(R.id.addNewSubCategory);
         Button addSubCategoryBtn = (Button) mView1.findViewById(R.id.addSubCategoryBtn);
         Button cancelSubCategoryBtn = (Button) mView1.findViewById(R.id.cancelSubCategoryBtn);
+        ImageView subCategoryImage = (ImageView) mView1.findViewById(R.id.subCategoryImage);
         alert1.setView(mView1);
         final AlertDialog alertDialog1 = alert1.create();
         alertDialog1.setCanceledOnTouchOutside(false);
 
+        subCategoryImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBookImage();
+
+            }
+        });
+
         addSubCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (add_sub_category == null){
+                String add_sub_category_str = add_sub_category.getText().toString();
+                if (add_sub_category_str.isEmpty()){
                     Toasty.error(getContext(),"Enter Sub Category").show();
                 }else{
-                    subCategoryList.add(add_sub_category.getText().toString());
+                    subCategoryList.add(add_sub_category_str);
                     Toasty.success(getContext(),"Sub Category Added").show();
                     alertDialog1.dismiss();
                 }
@@ -545,7 +557,12 @@ public class AddBookFragment extends Fragment {
 
         alertDialog1.show();
 
+
+
     }
+
+
+    
 
 
 

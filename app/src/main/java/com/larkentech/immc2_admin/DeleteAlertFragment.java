@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +71,7 @@ public class DeleteAlertFragment extends DialogFragment {
         bookDesigner = getArguments().getString("BookDesigner");
         bookPrice = getArguments().getString("BookPrice");
         bookImage = getArguments().getString("BookImage");
+
         bookID = getArguments().getString("BookID");
         bookCategoryID = getArguments().getString("BookCategory");
         bookSubCategoryID = getArguments().getString("BookSubCategory");
@@ -82,10 +82,6 @@ public class DeleteAlertFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Log.v("Delete","BookID:"+bookID);
-        Log.v("Delete","BookCategory:"+bookCategoryID);
-        Log.v("Delete","BookSubCategory:"+bookSubCategoryID);
 
         bookname = (TextView) view.findViewById(R.id.bookName);
         bookdesigner = (TextView) view.findViewById(R.id.bookDesigner);
@@ -109,6 +105,7 @@ public class DeleteAlertFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,21 +123,15 @@ public class DeleteAlertFragment extends DialogFragment {
     }
 
     private void deleteBook(String bookID){
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
         if (bookSubCategoryID != null)
         {
             DatabaseReference databaseReference = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID);
             databaseReference.removeValue();
-            getDialog().dismiss();
-            Toasty.success(getContext(),"Book Deleted successfully").show();
         }
         else {
 
             DatabaseReference databaseReference1 = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookID);
             databaseReference1.removeValue();
-            getDialog().dismiss();
-            Toasty.success(getContext(),"Book Deleted successfully").show();
 
         }
 
