@@ -55,6 +55,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
         TextView BookPrice240Pages = convertView.findViewById(R.id.bookPrice2);
         TextView BooksName = convertView.findViewById(R.id.bookName);
         TextView BooksDesigner = convertView.findViewById(R.id.bookDesigner);
+        TextView BookDesc = convertView.findViewById(R.id.bookDesc);
 
 
 
@@ -72,6 +73,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
         BookPrice200Pages.setText("200 Pages Rs." + bookModal.getBookPrice200Pages() + "/-");
         BookPrice240Pages.setText("240 Pages Rd." + bookModal.getBookPrice240Pages() + "/-");
         BooksName.setText(bookModal.getBookName());
+        BookDesc.setText(bookModal.getBookDesc());
 
         BooksDesigner.setText("Designed By "+bookModal.getBookDesigner());
 
