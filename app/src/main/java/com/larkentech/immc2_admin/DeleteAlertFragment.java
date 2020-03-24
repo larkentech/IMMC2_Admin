@@ -69,7 +69,7 @@ public class DeleteAlertFragment extends DialogFragment {
 
         bookName = getArguments().getString("BookName");
         bookDesigner = getArguments().getString("BookDesigner");
-        bookPrice = getArguments().getString("BookPrice");
+        bookPrice = getArguments().getString("BookPrice160Pages");
         bookImage = getArguments().getString("BookImage");
 
         bookID = getArguments().getString("BookID");
@@ -83,16 +83,18 @@ public class DeleteAlertFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
         bookname = (TextView) view.findViewById(R.id.bookName);
         bookdesigner = (TextView) view.findViewById(R.id.bookDesigner);
-        bookprice = (TextView) view.findViewById(R.id.bookPrice);
+        bookprice = (TextView) view.findViewById(R.id.bookPriceDelete);
         bookimage = (ImageView) view.findViewById(R.id.itemImage);
         cancel = view.findViewById(R.id.cancel);
         delete =view.findViewById(R.id.delete);
 
         bookname.setText(bookName);
-        bookdesigner.setText(bookDesigner);
-        bookprice.setText(bookPrice);
+        bookdesigner.setText("Designed By "+bookDesigner);
+        bookprice.setText("Rs."+bookPrice);
         Glide
                 .with(getContext())
                 .load(bookImage)
