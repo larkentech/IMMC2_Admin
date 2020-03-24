@@ -129,11 +129,15 @@ public class DeleteAlertFragment extends DialogFragment {
         {
             DatabaseReference databaseReference = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID);
             databaseReference.removeValue();
+            getDialog().dismiss();
+            Toasty.success(getContext(),"Book Successfully Deleted").show();
         }
         else {
 
             DatabaseReference databaseReference1 = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookID);
             databaseReference1.removeValue();
+            getDialog().dismiss();
+            Toasty.success(getContext(),"Book Successfully Deleted").show();
 
         }
 
