@@ -57,6 +57,7 @@ public class BookAdapter extends ArrayAdapter<BookModal> {
         TextView BookPrice2 = convertView.findViewById(R.id.bookPrice2);
         TextView BooksName = convertView.findViewById(R.id.bookName);
         TextView BooksDesigner = convertView.findViewById(R.id.bookDesigner);
+        TextView BookDesc = convertView.findViewById(R.id.bookDesc);
 
         ImageView BookImage = convertView.findViewById(R.id.itemImage);
         Glide
@@ -65,11 +66,12 @@ public class BookAdapter extends ArrayAdapter<BookModal> {
                 .centerCrop()
                 .into(BookImage);
 
-        BookPrice.setText("160 Pages Rs." + bookModal.getBookPrice160Pages() + "/-");
-        BookPrice1.setText("200 Pages Rs." + bookModal.getBookPrice200Pages() + "/-");
-        BookPrice2.setText("240 Pages Rs." + bookModal.getBookPrice240Pages() + "/-");
+        BookPrice.setText("Rs." + bookModal.getBookPrice160Pages() + "/-");
+        BookPrice1.setText("Rs." + bookModal.getBookPrice200Pages() + "/-");
+        BookPrice2.setText("Rs." + bookModal.getBookPrice240Pages() + "/-");
         BooksName.setText(bookModal.getBookName());
         BooksDesigner.setText("Designed By "+bookModal.getBookDesigner());
+        BookDesc.setText(bookModal.getBookDesc());
 
         selected.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DeleteAlertFragment"
-    android:orientation="vertical"
+    android:background="@android:color/white"
     android:gravity="center_horizontal"
-    android:background="@android:color/white">
+    android:orientation="vertical"
+    tools:context=".DeleteAlertFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_horizontal"
         android:text="Are You Sure"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
         android:textColor="@android:color/black"
-        android:fontFamily="@font/latoblack"
-        android:gravity="center_horizontal"/>
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You want to delete this book?"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="You want to delete this book?" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -36,17 +37,18 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            android:id="@+id/relativela">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/itemImageCard"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="6dp"
                 app:cardElevation="8dp">
@@ -55,21 +57,18 @@
                     android:id="@+id/itemImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:background="@color/colorPrimary" />
+                    android:background="@color/colorPrimary"
+                    android:scaleType="fitXY" />
 
 
             </androidx.cardview.widget.CardView>
-
 
             <TextView
                 android:id="@+id/bookName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_toEndOf="@id/itemImageCard"
-                android:fontFamily="@font/latoblack"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="APJ Abdul Kalam"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
@@ -78,73 +77,59 @@
                 android:id="@+id/bookDesigner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/bookName"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_toEndOf="@id/itemImageCard"
-                android:fontFamily="@font/latoblack"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="By Hemanth Hem"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/bookPrice"
-                android:layout_toEndOf="@id/itemImageCard"
-                android:layout_below="@id/bookDesigner"
-                android:layout_marginStart="16dp"
+                android:id="@+id/bookPriceDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/latoblack"
+                android:layout_below="@id/bookDesigner"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="Rs. 480/-"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:rating="4"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@id/itemImageCard"
-                android:layout_below="@id/bookPrice"
-                android:progressBackgroundTint="@color/colorPrimary"
-                android:layout_marginTop="2dp"
-                android:numStars="5"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
-        >
+        android:layout_marginTop="8dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp">
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
             android:id="@+id/cancel"
-            android:textAllCaps="false"
-            android:textSize="16dp"
-            android:textColor="@android:color/black"
-            android:fontFamily="@font/latoblack"
-            android:background="@android:color/transparent"/>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/cancel"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/montserrat_bold"
             android:text="Delete"
             android:textAllCaps="false"
-            android:id="@+id/delete"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:fontFamily="@font/latoblack"
-            android:layout_toEndOf="@id/cancel"
-            android:background="@android:color/transparent"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 </LinearLayout>

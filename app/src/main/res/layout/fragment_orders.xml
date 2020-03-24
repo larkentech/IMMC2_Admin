@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical"
-tools:context=".OrdersFragment">
-
-<ListView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/background_light"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    android:id="@+id/orderlist"
-    android:scrollbars="none"
-    android:divider="@null"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrdersFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Details"
+        android:layout_margin="16dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/montserrat_black"
+        android:textSize="18sp"/>
+
+    <ListView
+        android:id="@+id/orderlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:scrollbars="none" />
 
 
 </LinearLayout>
