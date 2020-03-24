@@ -107,7 +107,6 @@ public class DeleteAlertFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +124,7 @@ public class DeleteAlertFragment extends DialogFragment {
     }
 
     private void deleteBook(String bookID){
+        firebaseDatabase = FirebaseDatabase.getInstance();
         if (bookSubCategoryID != null)
         {
             DatabaseReference databaseReference = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID);
