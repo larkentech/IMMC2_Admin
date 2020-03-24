@@ -1,6 +1,8 @@
 package com.larkentech.immc2_admin;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     String adminLoginId;
     String adminPassword;
 
+
+    SharedPreferences userSharedPref;
+    SharedPreferences.Editor myEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         loginId = findViewById(R.id.loginId);
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginBtn);
+
+        userSharedPref = getSharedPreferences("UserPref", Context.MODE_PRIVATE);
+        myEdit = userSharedPref.edit();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                     Toast.makeText(getApplicationContext(),"Invalid Password. Try Again",Toast.LENGTH_LONG).show();
                                 }else{
+                                    myEdit.putString("LoginID",loginId.getText().toString().trim().toUpperCase());
+                                    myEdit.commit();
                                     Intent i = new Intent(LoginActivity.this,MainActivity.class);
                                     startActivity(i);
                                     finish();

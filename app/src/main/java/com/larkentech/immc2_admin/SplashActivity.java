@@ -25,23 +25,23 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         userpref = getSharedPreferences("UserPref",MODE_PRIVATE);
-        adminid = userpref.getString("loginID",null);
+        adminid = userpref.getString("LoginID",null);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (haveNetworkConnection())
                 {
-                    if (adminid != null )
+                    if (adminid == null )
                     {
                         Log.v("TAG","SharedPref2:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginId",null));
-                        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                        Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                         startActivity(i);
                         finish();
                     }
                     else {
                         Log.v("TAG","SharedPref3:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginId",null));
-                        Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                        Intent i = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(i);
                         finish();
                     }

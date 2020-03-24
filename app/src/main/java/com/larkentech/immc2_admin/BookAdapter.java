@@ -86,7 +86,6 @@ public class BookAdapter extends ArrayAdapter<BookModal> {
                 args.putString("BookSubCategory", bookModal.getBookSubCategory());
 
 
-
                 FragmentActivity activity = (FragmentActivity)(context);
                 FragmentManager fm = activity.getSupportFragmentManager();
                 alertDialog = new DeleteAlertFragment();
@@ -95,10 +94,6 @@ public class BookAdapter extends ArrayAdapter<BookModal> {
 
             }
         });
-
-
-
-
 
         return convertView;
     }
