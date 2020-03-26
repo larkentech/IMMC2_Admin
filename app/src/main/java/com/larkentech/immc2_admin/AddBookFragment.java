@@ -23,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -515,19 +517,16 @@ public class AddBookFragment extends Fragment {
 
     public void openAddSubCategory(){
 
-        /*
 
-        final AlertDialog.Builder  alert1 = new AlertDialog.Builder(context1);
-        View mView1 = getLayoutInflater().inflate(R.layout.sub_category_dialog,null);
-        final EditText add_sub_category = (EditText) mView1.findViewById(R.id.addNewSubCategory);
-        Button addSubCategoryBtn = (Button) mView1.findViewById(R.id.addSubCategoryBtn);
-        Button cancelSubCategoryBtn = (Button) mView1.findViewById(R.id.cancelSubCategoryBtn);
-        ImageView subCategoryImage = (ImageView) mView1.findViewById(R.id.subCategoryImage);
-        alert1.setView(mView1);
-        final AlertDialog alertDialog1 = alert1.create();
-        alertDialog1.setCanceledOnTouchOutside(false);
+        FragmentActivity activity = (FragmentActivity)(context);
+        FragmentManager fm = activity.getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putString("BookCategory",bookCategoryStr);
+        SubCategoryFragment alertDialog = new SubCategoryFragment();
+        alertDialog.setArguments(args);
+        alertDialog.show(fm, "fragment_alert");
 
-        subCategoryImage.setOnClickListener(new View.OnClickListener() {
+       /* subCategoryImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openBookImage();

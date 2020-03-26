@@ -103,7 +103,6 @@ public class SubCategoryFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 addNewSubCategoryStr = addNewSubCategory.getText().toString();
-
                 addImagesMap.put(addNewSubCategoryStr,imageUrl);
                 databaseReference.child(bookCategoryID).setValue(addImagesMap);
                 Toasty.success(getContext(),"Sub Category added Successfully").show();
