@@ -30,6 +30,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
     EditAlertFragment alertDialog;
 
 
+
     public EditAdapter(@NonNull Context context, int resource, @NonNull List<BookModal> objects, List<String> bookId, Activity activity) {
         super(context, resource, objects);
         this.bookID = bookId;
@@ -89,6 +90,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
                 args.putString("BookPrice200Pages",bookModal.getBookPrice200Pages());
                 args.putString("BookPrice240Pages",bookModal.getBookPrice240Pages());
                 args.putString("BookDesc", bookModal.getBookDesc());
+                args.putString("BookID",bookModal.getBookID());
                 args.putString("BookCategory", bookModal.getBookCategory());
                 args.putString("BookSubCategory", bookModal.getBookSubCategory());
 

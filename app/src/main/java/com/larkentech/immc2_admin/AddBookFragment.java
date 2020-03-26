@@ -288,7 +288,7 @@ public class AddBookFragment extends Fragment {
                     addPhotoCard7.setVisibility(View.GONE);
                 }
 
-                Query query2 = firebaseDatabase1.child("BookDetails").child(sp1);
+                Query query2 = firebaseDatabase1.child("CategoryImages").child(sp1);
                 query2.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -414,7 +414,6 @@ public class AddBookFragment extends Fragment {
                     uploadImage(imageuri.get(i),i,imageuri.size());
                 }
 
-
                 databaseReference = firebaseDatabase.getReference();
                 addBookMap.put("BookName", bookName.getText().toString());
                 addBookMap.put("BookPrice160Pages", price1.getText().toString());
@@ -467,7 +466,7 @@ public class AddBookFragment extends Fragment {
                         });
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
+                .addOnFailureListener(                  new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Handle unsuccessful uploads
@@ -516,6 +515,8 @@ public class AddBookFragment extends Fragment {
 
     public void openAddSubCategory(){
 
+        /*
+
         final AlertDialog.Builder  alert1 = new AlertDialog.Builder(context1);
         View mView1 = getLayoutInflater().inflate(R.layout.sub_category_dialog,null);
         final EditText add_sub_category = (EditText) mView1.findViewById(R.id.addNewSubCategory);
@@ -556,6 +557,8 @@ public class AddBookFragment extends Fragment {
         });
 
         alertDialog1.show();
+
+         */
 
 
 

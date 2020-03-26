@@ -114,7 +114,7 @@ public class EditBookFragment extends Fragment {
 
                 String sp1= String.valueOf(s1.getSelectedItem());
 
-                Query query2 = firebaseDatabase1.child("BookDetails").child(sp1);
+                Query query2 = firebaseDatabase1.child("CategoryImages").child(sp1);
                 query2.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

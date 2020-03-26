@@ -60,6 +60,10 @@ public class EditAlertFragment extends DialogFragment {
     String bookImage;
     String bookDesc;
 
+    CardView addPhotoCard7;
+    CardView addPhotoCard6;
+    CardView addPhotoCard5;
+
     int flag;
 
     List<Uri> imageuri = new ArrayList<>();
@@ -137,12 +141,12 @@ public class EditAlertFragment extends DialogFragment {
 
         mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
 
-        bookname = (EditText) view.findViewById(R.id.bookName);
-        bookdesigner = (EditText) view.findViewById(R.id.designerName);
-        bookprice160Pages = (EditText) view.findViewById(R.id.price1);
-        bookprice200Pages = (EditText) view.findViewById(R.id.price2);
-        bookprice240Pages = (EditText) view.findViewById(R.id.price3);
-        bookdesc = (EditText) view.findViewById(R.id.description);
+        bookname = (TextView) view.findViewById(R.id.bookName);
+        bookdesigner = (TextView) view.findViewById(R.id.designerName);
+        bookprice160Pages = (TextView) view.findViewById(R.id.price1);
+        bookprice200Pages = (TextView) view.findViewById(R.id.price2);
+        bookprice240Pages = (TextView) view.findViewById(R.id.price3);
+        bookdesc = (TextView) view.findViewById(R.id.description);
         bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
         booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
         bookImage1 = (ImageView) view.findViewById(R.id.bookImage1);
@@ -152,6 +156,11 @@ public class EditAlertFragment extends DialogFragment {
         bookImage5 = (ImageView) view.findViewById(R.id.bookImage5);
         bookImage6 = (ImageView) view.findViewById(R.id.bookImage6);
         bookImage7 = (ImageView) view.findViewById(R.id.bookImage7);
+        addPhotoCard5 = (CardView) view.findViewById(R.id.addPhotoCard5);
+        addPhotoCard6 = (CardView) view.findViewById(R.id.addPhotoCard6);
+        addPhotoCard7 = (CardView) view.findViewById(R.id.addPhotoCard7);
+        update = (Button) view.findViewById(R.id.update);
+
 
         bookImage1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,9 +185,6 @@ public class EditAlertFragment extends DialogFragment {
                 flag=3;
             }
         });
-
-
-
 
 
         bookImage4.setOnClickListener(new View.OnClickListener() {
@@ -212,8 +218,6 @@ public class EditAlertFragment extends DialogFragment {
             }
         });
 
-        update = view.findViewById(R.id.update);
-
 
         bookname.setText(bookName);
         bookdesigner.setText(bookDesigner);
@@ -224,12 +228,24 @@ public class EditAlertFragment extends DialogFragment {
         bookprice200Pages.setText(bookPrice200Pages);
         bookprice240Pages.setText(bookPrice240Pages);
 
-
         Glide
                 .with(getContext())
                 .load(bookImage)
                 .centerCrop()
                 .into(bookImage1);
+
+     
+        if (bookcategory.equals("Engineering") )
+        {
+            addPhotoCard5.setVisibility(View.VISIBLE);
+            addPhotoCard6.setVisibility(View.VISIBLE);
+            addPhotoCard7.setVisibility(View.VISIBLE);
+        }
+        else{
+            addPhotoCard5.setVisibility(View.GONE);
+            addPhotoCard6.setVisibility(View.GONE);
+            addPhotoCard7.setVisibility(View.GONE);
+        }
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,9 +326,7 @@ public class EditAlertFragment extends DialogFragment {
         if (bookNameStr.isEmpty() || bookPrice200PagesStr.isEmpty() || bookPrice240PagesStr.isEmpty() || bookPrice160PagesStr.isEmpty() || bookDescStr.isEmpty() || bookDesignerStr.isEmpty() || bookCategoryStr.isEmpty() || bookSubCategoryStr.isEmpty()) {
             Toasty.error(getContext(), "Enter Required Details").show();
         } else {
-            for (int i = 0; i < imageuri.size(); i++) {
-                uploadImage(imageuri.get(i), i, imageuri.size());
-            }
+
 
             editBookMap.put("BookName", bookname.getText().toString());
             editBookMap.put("BookPrice160Pages", bookprice160Pages.getText().toString());
@@ -323,6 +337,9 @@ public class EditAlertFragment extends DialogFragment {
             editBookMap.put("BookSubCategory", booksubcategory.getText().toString());
             editBookMap.put("BookDesigner", bookdesigner.getText().toString());
             editBookMap.put("BookId", bookID);
+            for (int i = 0; i < imageuri.size(); i++) {
+                uploadImage(imageuri.get(i), i, imageuri.size());
+            }
 
         }
 
