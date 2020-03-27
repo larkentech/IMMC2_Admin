@@ -114,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                myEdit.putString("LoginID",null);
+                myEdit.putString("loginID",null);
                 myEdit.commit();
                 Intent i = new Intent(MainActivity.this, SplashActivity.class);
                 startActivity(i);
                 finish();
-                Log.v("TAG","SharedPref:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("LoginID",null));
+                Log.v("TAG","SharedPref:"+getSharedPreferences("UserPref",MODE_PRIVATE).getString("loginID",null));
             }
         });
     }

@@ -38,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,13 +53,16 @@ import static android.app.Activity.RESULT_OK;
  */
 public class EditAlertFragment extends DialogFragment {
 
-    String bookName;
-    String bookDesigner;
+
+   /* String bookDesigner;
     String bookPrice160Pages;
     String bookPrice200Pages;
     String bookPrice240Pages;
     String bookImage;
-    String bookDesc;
+    ArrayList<String> bookImages;
+    String bookDesc;*/
+
+
 
     CardView addPhotoCard7;
     CardView addPhotoCard6;
@@ -101,6 +105,7 @@ public class EditAlertFragment extends DialogFragment {
     public String bookID;
     public String bookCategoryID;
     public String bookSubCategoryID;
+    private  BookModal bookModel;
 
 
     public EditAlertFragment() {
@@ -120,17 +125,20 @@ public class EditAlertFragment extends DialogFragment {
 
         // Inflate the layout for this fragment
 
-        bookName = getArguments().getString("BookName");
+    /*    bookName = getArguments().getString("BookName");
         bookDesigner = getArguments().getString("BookDesigner");
         bookPrice160Pages = getArguments().getString("BookPrice160Pages");
         bookPrice200Pages = getArguments().getString("BookPrice200Pages");
         bookPrice240Pages = getArguments().getString("BookPrice240Pages");
         bookDesc = getArguments().getString("BookDesc");
         bookImage = getArguments().getString("BookImage");
+        bookImages = getArguments().getStringArrayList("BookImages");
 
         bookID = getArguments().getString("BookID");
         bookCategoryID = getArguments().getString("BookCategory");
-        bookSubCategoryID = getArguments().getString("BookSubCategory");
+        bookSubCategoryID = getArguments().getString("BookSubCategory");*/
+
+         bookModel=getArguments().getParcelable("bookModel");
 
         return inflater.inflate(R.layout.fragment_edit_alert, container, false);
     }
@@ -138,121 +146,158 @@ public class EditAlertFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+try {
+    mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
-
-        bookname = (TextView) view.findViewById(R.id.bookName);
-        bookdesigner = (TextView) view.findViewById(R.id.designerName);
-        bookprice160Pages = (TextView) view.findViewById(R.id.price1);
-        bookprice200Pages = (TextView) view.findViewById(R.id.price2);
-        bookprice240Pages = (TextView) view.findViewById(R.id.price3);
-        bookdesc = (TextView) view.findViewById(R.id.description);
-        bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
-        booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
-        bookImage1 = (ImageView) view.findViewById(R.id.bookImage1);
-        bookImage2 = (ImageView) view.findViewById(R.id.bookImage2);
-        bookImage3 = (ImageView) view.findViewById(R.id.bookImage3);
-        bookImage4 = (ImageView) view.findViewById(R.id.bookImage4);
-        bookImage5 = (ImageView) view.findViewById(R.id.bookImage5);
-        bookImage6 = (ImageView) view.findViewById(R.id.bookImage6);
-        bookImage7 = (ImageView) view.findViewById(R.id.bookImage7);
-        addPhotoCard5 = (CardView) view.findViewById(R.id.addPhotoCard5);
-        addPhotoCard6 = (CardView) view.findViewById(R.id.addPhotoCard6);
-        addPhotoCard7 = (CardView) view.findViewById(R.id.addPhotoCard7);
-        update = (Button) view.findViewById(R.id.update);
-
-
-        bookImage1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=1;
-            }
-        });
-
-        bookImage2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=2;
-            }
-        });
-
-        bookImage3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=3;
-            }
-        });
+    bookname = (TextView) view.findViewById(R.id.bookName);
+    bookdesigner = (TextView) view.findViewById(R.id.designerName);
+    bookprice160Pages = (TextView) view.findViewById(R.id.price1);
+    bookprice200Pages = (TextView) view.findViewById(R.id.price2);
+    bookprice240Pages = (TextView) view.findViewById(R.id.price3);
+    bookdesc = (TextView) view.findViewById(R.id.description);
+    bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
+    booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
+    bookImage1 = (ImageView) view.findViewById(R.id.bookImage1);
+    bookImage2 = (ImageView) view.findViewById(R.id.bookImage2);
+    bookImage3 = (ImageView) view.findViewById(R.id.bookImage3);
+    bookImage4 = (ImageView) view.findViewById(R.id.bookImage4);
+    bookImage5 = (ImageView) view.findViewById(R.id.bookImage5);
+    bookImage6 = (ImageView) view.findViewById(R.id.bookImage6);
+    bookImage7 = (ImageView) view.findViewById(R.id.bookImage7);
+    addPhotoCard5 = (CardView) view.findViewById(R.id.addPhotoCard5);
+    addPhotoCard6 = (CardView) view.findViewById(R.id.addPhotoCard6);
+    addPhotoCard7 = (CardView) view.findViewById(R.id.addPhotoCard7);
+    update = (Button) view.findViewById(R.id.update);
 
 
-        bookImage4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=4;
-            }
-        });
-        bookImage5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=5;
-            }
-        });
-
-        bookImage6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=6;
-            }
-        });
-
-        bookImage7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBookImage();
-                flag=7;
-            }
-        });
-
-
-        bookname.setText(bookName);
-        bookdesigner.setText(bookDesigner);
-        bookdesc.setText(bookDesc);
-        bookcategory.setText(bookCategoryID);
-        booksubcategory.setText(bookSubCategoryID);
-        bookprice160Pages.setText(bookPrice160Pages);
-        bookprice200Pages.setText(bookPrice200Pages);
-        bookprice240Pages.setText(bookPrice240Pages);
-
-        Glide
-                .with(getContext())
-                .load(bookImage)
-                .centerCrop()
-                .into(bookImage1);
-
-     
-        if (bookcategory.equals("Engineering") )
-        {
-            addPhotoCard5.setVisibility(View.VISIBLE);
-            addPhotoCard6.setVisibility(View.VISIBLE);
-            addPhotoCard7.setVisibility(View.VISIBLE);
+    bookImage1.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 1;
         }
-        else{
-            addPhotoCard5.setVisibility(View.GONE);
-            addPhotoCard6.setVisibility(View.GONE);
-            addPhotoCard7.setVisibility(View.GONE);
-        }
+    });
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUpdateBook(bookID);
-            }
-        });
+    bookImage2.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 2;
+        }
+    });
+
+    bookImage3.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 3;
+        }
+    });
+
+
+    bookImage4.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 4;
+        }
+    });
+    bookImage5.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 5;
+        }
+    });
+
+    bookImage6.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 6;
+        }
+    });
+
+    bookImage7.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openBookImage();
+            flag = 7;
+        }
+    });
+
+
+    bookname.setText(bookModel.getBookName());
+    bookdesigner.setText(bookModel.getBookDesigner());
+    bookdesc.setText(bookModel.getBookDesc());
+    bookcategory.setText(bookCategoryID);
+    booksubcategory.setText(bookSubCategoryID);
+    bookprice160Pages.setText(bookModel.getBookPrice160Pages());
+    bookprice200Pages.setText(bookModel.getBookPrice200Pages());
+    bookprice240Pages.setText(bookModel.getBookPrice240Pages());
+
+
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage1())
+            .centerCrop()
+            .into(bookImage1);
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage2())
+            .centerCrop()
+            .into(bookImage2);
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage3())
+            .centerCrop()
+            .into(bookImage3);
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage4())
+            .centerCrop()
+            .into(bookImage4);
+
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage5())
+            .centerCrop()
+            .into(bookImage5);
+
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage6())
+            .centerCrop()
+            .into(bookImage6);
+
+    Glide
+            .with(getContext())
+            .load(bookModel.getBookImages().getImage7())
+            .centerCrop()
+            .into(bookImage7);
+
+
+
+    if (bookModel.getBookCategory().equals("Engineering")) {
+        addPhotoCard5.setVisibility(View.VISIBLE);
+        addPhotoCard6.setVisibility(View.VISIBLE);
+        addPhotoCard7.setVisibility(View.VISIBLE);
+    } else {
+        addPhotoCard5.setVisibility(View.GONE);
+        addPhotoCard6.setVisibility(View.GONE);
+        addPhotoCard7.setVisibility(View.GONE);
+    }
+
+
+    update.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            openUpdateBook(bookModel.getBookID());
+        }
+    });
+}catch (Exception e){
+    e.printStackTrace();
+}
     }
 
     @Override

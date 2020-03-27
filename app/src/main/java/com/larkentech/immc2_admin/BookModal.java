@@ -1,12 +1,17 @@
 package com.larkentech.immc2_admin;
 
-public class BookModal {
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BookModal implements Parcelable {
     private String BookName;
     private String BookPrice160Pages;
     private String BookPrice200Pages;
     private String BookPrice240Pages;
     private String BookDesc;
     private String BookImage;
+    private BookImages BookImages;
     private String BookDesigner;
     private String BookCategory;
     private String BookID;
@@ -15,17 +20,26 @@ public class BookModal {
     public BookModal() {
     }
 
-    public BookModal(String bookName, String bookPrice160Pages, String bookPrice200Pages, String bookPrice240Pages, String bookDesc, String bookImage, String bookDesigner, String bookCategory, String bookId, String bookSubCategory) {
+    public BookModal(String bookName, String bookPrice160Pages, String bookPrice200Pages, String bookPrice240Pages, String bookDesc, String bookImage, com.larkentech.immc2_admin.BookImages bookImages, String bookDesigner, String bookCategory, String bookID, String bookSubCategory) {
         BookName = bookName;
         BookPrice160Pages = bookPrice160Pages;
         BookPrice200Pages = bookPrice200Pages;
         BookPrice240Pages = bookPrice240Pages;
         BookDesc = bookDesc;
         BookImage = bookImage;
+        BookImages = bookImages;
         BookDesigner = bookDesigner;
         BookCategory = bookCategory;
-        BookID = bookId;
+        BookID = bookID;
         BookSubCategory = bookSubCategory;
+    }
+
+    public com.larkentech.immc2_admin.BookImages getBookImages() {
+        return BookImages;
+    }
+
+    public void setBookImages(com.larkentech.immc2_admin.BookImages bookImages) {
+        BookImages = bookImages;
     }
 
     public String getBookName() {
@@ -106,5 +120,16 @@ public class BookModal {
 
     public void setBookSubCategory(String bookSubCategory) {
         BookSubCategory = bookSubCategory;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

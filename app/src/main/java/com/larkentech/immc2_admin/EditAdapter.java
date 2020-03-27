@@ -3,6 +3,7 @@ package com.larkentech.immc2_admin;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,8 @@ import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EditAdapter extends ArrayAdapter<BookModal> {
@@ -37,6 +40,8 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
         this.context = context;
         this.activity = activity;
     }
+
+
 
 
     @NonNull
@@ -58,11 +63,6 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
         TextView BooksDesigner = convertView.findViewById(R.id.bookDesigner);
         TextView BookDesc = convertView.findViewById(R.id.bookDesc);
 
-
-
-
-
-
         ImageView BookImage = convertView.findViewById(R.id.itemImage);
         Glide
                 .with(getContext())
@@ -83,7 +83,8 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-                args.putString("BookImage", bookModal.getBookImage());
+                args.putParcelable("bookModel",bookModal);
+              /*  args.putString("BookImage", bookModal.getBookImage());
                 args.putString("BookName", bookModal.getBookName());
                 args.putString("BookDesigner", bookModal.getBookDesigner());
                 args.putString("BookPrice160Pages", bookModal.getBookPrice160Pages());
@@ -93,7 +94,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
                 args.putString("BookID",bookModal.getBookID());
                 args.putString("BookCategory", bookModal.getBookCategory());
                 args.putString("BookSubCategory", bookModal.getBookSubCategory());
-
+                args.putString("Image1",  bookModal.getBookImages().getImage1());*/
 
                 FragmentActivity activity = (FragmentActivity)(context);
                 FragmentManager fm = activity.getSupportFragmentManager();

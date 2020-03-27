@@ -98,6 +98,8 @@ public class AddBookFragment extends Fragment {
 
     List<Uri> imageuri = new ArrayList<>();
 
+    public String selectedCategory = "Engineering";
+
     StorageReference mStorageRef;
     FirebaseStorage storage;
     private int imagesCount = 4;
@@ -277,6 +279,7 @@ public class AddBookFragment extends Fragment {
                 subCategoryList.clear();
 
                 String sp1= String.valueOf(s1.getSelectedItem());
+                selectedCategory = String.valueOf(s1.getSelectedItem().toString());
 
                 if (sp1.equals("Engineering") )
                 {
@@ -521,7 +524,7 @@ public class AddBookFragment extends Fragment {
         FragmentActivity activity = (FragmentActivity)(context);
         FragmentManager fm = activity.getSupportFragmentManager();
         Bundle args = new Bundle();
-        args.putString("BookCategory",bookCategoryStr);
+        args.putString("BookCategory",selectedCategory);
         SubCategoryFragment alertDialog = new SubCategoryFragment();
         alertDialog.setArguments(args);
         alertDialog.show(fm, "fragment_alert");

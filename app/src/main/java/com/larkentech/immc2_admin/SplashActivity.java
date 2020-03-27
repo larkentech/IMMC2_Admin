@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         userpref = getSharedPreferences("UserPref",MODE_PRIVATE);
-        adminid = userpref.getString("LoginID",null);
+        adminid = userpref.getString("loginID",null);
 
         new Handler().postDelayed(new Runnable() {
             @Override

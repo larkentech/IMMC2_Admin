@@ -164,9 +164,13 @@ public class EditBookFragment extends Fragment {
                 databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        BookModal selectedBookModal = dataSnapshot.getValue(BookModal.class);
-                        editAdapter.add(selectedBookModal);
-                        BookID.add(dataSnapshot.getKey());
+                        try {
+                            BookModal selectedBookModal = dataSnapshot.getValue(BookModal.class);
+                            editAdapter.add(selectedBookModal);
+                            BookID.add(dataSnapshot.getKey());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

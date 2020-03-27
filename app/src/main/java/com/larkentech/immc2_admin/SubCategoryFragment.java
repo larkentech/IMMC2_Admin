@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,12 +79,15 @@ public class SubCategoryFragment extends DialogFragment {
         // Inflate the layout for this fragment
 
         bookCategoryID = getArguments().getString("BookCategory");
+
         return inflater.inflate(R.layout.fragment_sub_category, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Log.v("SubCategoryFragment","BookCategory:"+bookCategoryID);
 
         mStorageRef = FirebaseStorage.getInstance().getReference("New Books");
 
@@ -99,12 +103,12 @@ public class SubCategoryFragment extends DialogFragment {
             }
         });
 
-        addNewSubCategory.setOnClickListener(new View.OnClickListener() {
+        addSubCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNewSubCategoryStr = addNewSubCategory.getText().toString();
                 addImagesMap.put(addNewSubCategoryStr,imageUrl);
-                databaseReference.child(bookCategoryID).setValue(addImagesMap);
+                databaseReference.child(bookCategoryID).updateChildren(addImagesMap);
                 Toasty.success(getContext(),"Sub Category added Successfully").show();
                 getDialog().dismiss();
 
