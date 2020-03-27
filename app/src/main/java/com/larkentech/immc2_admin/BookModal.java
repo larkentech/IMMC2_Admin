@@ -4,44 +4,42 @@ package com.larkentech.immc2_admin;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BookModal implements Parcelable {
+public class BookModal {
     private String BookName;
     private String BookPrice160Pages;
     private String BookPrice200Pages;
     private String BookPrice240Pages;
     private String BookDesc;
     private String BookImage;
-    private BookImages BookImages;
     private String BookDesigner;
     private String BookCategory;
     private String BookID;
     private String BookSubCategory;
 
+    private String Image1;
+    private String Image2;
+    private String Image3;
+    private String Image4;
+    private String Image5;
+    private String Image6;
+    private String Image7;
+
+
     public BookModal() {
     }
 
-    public BookModal(String bookName, String bookPrice160Pages, String bookPrice200Pages, String bookPrice240Pages, String bookDesc, String bookImage, com.larkentech.immc2_admin.BookImages bookImages, String bookDesigner, String bookCategory, String bookID, String bookSubCategory) {
+    public BookModal(String bookName, String bookPrice160Pages, String bookPrice200Pages, String bookPrice240Pages, String bookDesc, String bookImage, String bookDesigner, String bookCategory, String bookID, String bookSubCategory) {
         BookName = bookName;
         BookPrice160Pages = bookPrice160Pages;
         BookPrice200Pages = bookPrice200Pages;
         BookPrice240Pages = bookPrice240Pages;
         BookDesc = bookDesc;
         BookImage = bookImage;
-        BookImages = bookImages;
         BookDesigner = bookDesigner;
         BookCategory = bookCategory;
         BookID = bookID;
         BookSubCategory = bookSubCategory;
     }
-
-    public com.larkentech.immc2_admin.BookImages getBookImages() {
-        return BookImages;
-    }
-
-    public void setBookImages(com.larkentech.immc2_admin.BookImages bookImages) {
-        BookImages = bookImages;
-    }
-
     public String getBookName() {
         return BookName;
     }
@@ -122,14 +120,59 @@ public class BookModal implements Parcelable {
         BookSubCategory = bookSubCategory;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getImage1() {
+        return Image1;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void setImage1(String image1) {
+        Image1 = image1;
+    }
 
+    public String getImage2() {
+        return Image2;
+    }
+
+    public void setImage2(String image2) {
+        Image2 = image2;
+    }
+
+    public String getImage3() {
+        return Image3;
+    }
+
+    public void setImage3(String image3) {
+        Image3 = image3;
+    }
+
+    public String getImage4() {
+        return Image4;
+    }
+
+    public void setImage4(String image4) {
+        Image4 = image4;
+    }
+
+    public String getImage5() {
+        return Image5;
+    }
+
+    public void setImage5(String image5) {
+        Image5 = image5;
+    }
+
+    public String getImage6() {
+        return Image6;
+    }
+
+    public void setImage6(String image6) {
+        Image6 = image6;
+    }
+
+    public String getImage7() {
+        return Image7;
+    }
+
+    public void setImage7(String image7) {
+        Image7 = image7;
     }
 }

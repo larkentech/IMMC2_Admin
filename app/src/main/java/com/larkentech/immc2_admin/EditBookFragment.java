@@ -158,7 +158,6 @@ public class EditBookFragment extends Fragment {
                 editAdapter = new EditAdapter(getContext(), R.layout.single_edit_item, selectedList, BookID, getActivity());
                 selectedListView.setAdapter(editAdapter);
 
-
                 firebaseDatabase = FirebaseDatabase.getInstance();
                 databaseReference = firebaseDatabase.getReference().child("BookDetails").child(category).child(subCategory);
                 databaseReference.addChildEventListener(new ChildEventListener() {
@@ -166,8 +165,9 @@ public class EditBookFragment extends Fragment {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         try {
                             BookModal selectedBookModal = dataSnapshot.getValue(BookModal.class);
-                            editAdapter.add(selectedBookModal);
                             BookID.add(dataSnapshot.getKey());
+                            editAdapter.add(selectedBookModal);
+
                         }catch (Exception e){
                             e.printStackTrace();
                         }
