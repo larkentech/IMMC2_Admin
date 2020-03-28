@@ -462,6 +462,12 @@ public class EditAlertFragment extends DialogFragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+    public int randomTxnID() {
+        Random rnd = new Random();
+        int txnID = rnd.nextInt(999999999) + 1;
+        return txnID;
+    }
+
     public void openUpdateBook(String bookID) {
         String bookNameStr = bookname.getText().toString();
         String bookPrice160PagesStr = bookprice160Pages.getText().toString();
@@ -509,9 +515,8 @@ public class EditAlertFragment extends DialogFragment {
 
         final int max = 10;
         final int min = 1;
-        final int random = new Random().nextInt((max-min) + 1) + min;
 
-        final StorageReference reference = mStorageRef.child(random+ "." + getExtension(uri));
+        final StorageReference reference = mStorageRef.child(String.valueOf(randomTxnID())+ "." + getExtension(uri));
         reference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
