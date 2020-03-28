@@ -11,11 +11,21 @@ public class OrderModal {
     private String ItemsCount;
     private String PhoneNumber;
     private String TxnID;
+    private String Pages;
 
-    public OrderModal() {
+    public String getPages() {
+        return Pages;
     }
 
-    public OrderModal(String address, String bookId, String bookName, String finalPrice, String name, String orderDate, String itemsCount, String phoneNumber, String txnID) {
+    public void setPages(String pages) {
+        Pages = pages;
+    }
+
+    public OrderModal() {
+
+    }
+
+    public OrderModal(String address, String bookId, String bookName, String finalPrice, String name, String orderDate, String itemsCount, String phoneNumber, String txnID, String pages) {
         Address = address;
         BookID = bookId;
         BookName = bookName;
@@ -25,6 +35,7 @@ public class OrderModal {
        ItemsCount = itemsCount;
         PhoneNumber = phoneNumber;
         TxnID = txnID;
+        this.Pages = pages;
     }
 
     public String getAddress() {
