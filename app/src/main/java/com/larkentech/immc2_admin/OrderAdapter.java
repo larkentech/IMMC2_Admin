@@ -54,6 +54,7 @@ public class OrderAdapter extends ArrayAdapter<OrderModal> {
         TextView ItemsCount = convertView.findViewById(R.id.quantity);
         TextView OrderDate = convertView.findViewById(R.id.orderDate);
         TextView TxnID = convertView.findViewById(R.id.txnNum);
+        TextView pages = convertView.findViewById(R.id.pages);
 
 
         BookName.setText(orderModal.getBookName());
@@ -63,6 +64,7 @@ public class OrderAdapter extends ArrayAdapter<OrderModal> {
         PhoneNumber.setText("Ph: "+ orderModal.getPhoneNumber());
         OrderDate.setText(orderModal.getOrderDate());
         TxnID.setText(orderModal.getTxnID());
+        pages.setText(orderModal.getPages());
 
         return convertView;
     }

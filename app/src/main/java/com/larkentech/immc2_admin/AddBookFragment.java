@@ -42,6 +42,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
 
@@ -441,8 +442,12 @@ public class AddBookFragment extends Fragment {
 
         final int count11 = count+1;
 
+        final int max = 10;
+        final int min = 1;
+        final int random = new Random().nextInt((max-min) + 1) + min;
 
-        final StorageReference reference=mStorageRef.child("image"+Integer.toString(count)+"."+getExtension(imageuri.get(count)));
+
+        final StorageReference reference=mStorageRef.child(random+"."+getExtension(imageuri.get(count)));
         reference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
