@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -54,14 +59,23 @@ import static android.app.Activity.RESULT_OK;
 public class EditAlertFragment extends DialogFragment {
 
 
-   /* String bookDesigner;
+    String bookName;
+    String bookDesigner;
     String bookPrice160Pages;
     String bookPrice200Pages;
     String bookPrice240Pages;
     String bookImage;
     ArrayList<String> bookImages;
-    String bookDesc;*/
+    String bookDesc;
+    String image1;
+    String image2;
+    String image3;
+    String image4;
+    String image5;
+    String image6;
+    String image7;
 
+    String pointer;
 
 
     CardView addPhotoCard7;
@@ -70,7 +84,9 @@ public class EditAlertFragment extends DialogFragment {
 
     int flag;
 
-    List<Uri> imageuri = new ArrayList<>();
+    List<String> imageuri = new ArrayList<>(7);
+    List<String> imageuri2 = new ArrayList<>();
+
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
@@ -105,8 +121,10 @@ public class EditAlertFragment extends DialogFragment {
     public String bookID;
     public String bookCategoryID;
     public String bookSubCategoryID;
-    private  BookModal bookModel;
+    private BookModal bookModel;
 
+    Button updateText;
+    DatabaseReference databaseReference1;
 
     public EditAlertFragment() {
         // Required empty public constructor
@@ -123,22 +141,40 @@ public class EditAlertFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        getDialog().setCanceledOnTouchOutside(true);
         // Inflate the layout for this fragment
 
-    /*    bookName = getArguments().getString("BookName");
+        bookName = getArguments().getString("BookName");
         bookDesigner = getArguments().getString("BookDesigner");
         bookPrice160Pages = getArguments().getString("BookPrice160Pages");
         bookPrice200Pages = getArguments().getString("BookPrice200Pages");
         bookPrice240Pages = getArguments().getString("BookPrice240Pages");
         bookDesc = getArguments().getString("BookDesc");
         bookImage = getArguments().getString("BookImage");
-        bookImages = getArguments().getStringArrayList("BookImages");
+        image1 = getArguments().getString("Image1");
+        image2 = getArguments().getString("Image2");
+        image3 = getArguments().getString("Image3");
+        image4 = getArguments().getString("Image4");
+
+        imageuri.add("Hello");
+        imageuri.add("Hello");
+        imageuri.add("Hello");
+        imageuri.add("Hello");
+
+        if (getArguments().containsKey("Image5") && getArguments().containsKey("Image6") &&
+                getArguments().containsKey("Image7")) {
+            image5 = getArguments().getString("Image2");
+            image6 = getArguments().getString("Image6");
+            image7 = getArguments().getString("Image7");
+            imageuri.add("Hello");
+            imageuri.add("Hello");
+            imageuri.add("Hello");
+        }
 
         bookID = getArguments().getString("BookID");
         bookCategoryID = getArguments().getString("BookCategory");
-        bookSubCategoryID = getArguments().getString("BookSubCategory");*/
+        bookSubCategoryID = getArguments().getString("BookSubCategory");
 
-         bookModel=getArguments().getParcelable("bookModel");
 
         return inflater.inflate(R.layout.fragment_edit_alert, container, false);
     }
@@ -146,158 +182,219 @@ public class EditAlertFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-try {
-    mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
+        try {
+            mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
 
-    bookname = (TextView) view.findViewById(R.id.bookName);
-    bookdesigner = (TextView) view.findViewById(R.id.designerName);
-    bookprice160Pages = (TextView) view.findViewById(R.id.price1);
-    bookprice200Pages = (TextView) view.findViewById(R.id.price2);
-    bookprice240Pages = (TextView) view.findViewById(R.id.price3);
-    bookdesc = (TextView) view.findViewById(R.id.description);
-    bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
-    booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
-    bookImage1 = (ImageView) view.findViewById(R.id.bookImage1);
-    bookImage2 = (ImageView) view.findViewById(R.id.bookImage2);
-    bookImage3 = (ImageView) view.findViewById(R.id.bookImage3);
-    bookImage4 = (ImageView) view.findViewById(R.id.bookImage4);
-    bookImage5 = (ImageView) view.findViewById(R.id.bookImage5);
-    bookImage6 = (ImageView) view.findViewById(R.id.bookImage6);
-    bookImage7 = (ImageView) view.findViewById(R.id.bookImage7);
-    addPhotoCard5 = (CardView) view.findViewById(R.id.addPhotoCard5);
-    addPhotoCard6 = (CardView) view.findViewById(R.id.addPhotoCard6);
-    addPhotoCard7 = (CardView) view.findViewById(R.id.addPhotoCard7);
-    update = (Button) view.findViewById(R.id.update);
+            bookname = (TextView) view.findViewById(R.id.bookName);
+            bookdesigner = (TextView) view.findViewById(R.id.designerName);
+            bookprice160Pages = (TextView) view.findViewById(R.id.price1);
+            bookprice200Pages = (TextView) view.findViewById(R.id.price2);
+            bookprice240Pages = (TextView) view.findViewById(R.id.price3);
+            bookdesc = (TextView) view.findViewById(R.id.description);
+            bookcategory = (TextView) view.findViewById(R.id.categorySpinner);
+            booksubcategory = (TextView) view.findViewById(R.id.subCategorySpinner);
+            bookImage1 = (ImageView) view.findViewById(R.id.bookImage1);
+            bookImage2 = (ImageView) view.findViewById(R.id.bookImage2);
+            bookImage3 = (ImageView) view.findViewById(R.id.bookImage3);
+            bookImage4 = (ImageView) view.findViewById(R.id.bookImage4);
+            bookImage5 = (ImageView) view.findViewById(R.id.bookImage5);
+            bookImage6 = (ImageView) view.findViewById(R.id.bookImage6);
+            bookImage7 = (ImageView) view.findViewById(R.id.bookImage7);
+            addPhotoCard5 = (CardView) view.findViewById(R.id.addPhotoCard5);
+            addPhotoCard6 = (CardView) view.findViewById(R.id.addPhotoCard6);
+            addPhotoCard7 = (CardView) view.findViewById(R.id.addPhotoCard7);
+            update = (Button) view.findViewById(R.id.update);
+            updateText = view.findViewById(R.id.updatePhotos);
+
+            if (bookCategoryID.matches("Engineering")) {
+                addPhotoCard5.setVisibility(View.VISIBLE);
+                addPhotoCard6.setVisibility(View.VISIBLE);
+                addPhotoCard7.setVisibility(View.VISIBLE);
+            } else {
+                addPhotoCard5.setVisibility(View.GONE);
+                addPhotoCard6.setVisibility(View.GONE);
+                addPhotoCard7.setVisibility(View.GONE);
+            }
 
 
-    bookImage1.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 1;
+            bookImage1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 1;
+                    pointer = "bookImage1";
+                }
+            });
+
+            bookImage2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 2;
+                    pointer = "bookImage2";
+                }
+            });
+
+            bookImage3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 3;
+                    pointer = "bookImage3";
+                }
+            });
+
+
+            bookImage4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 4;
+                    pointer = "bookImage4";
+                }
+            });
+            bookImage5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 5;
+                    pointer = "bookImage5";
+                }
+            });
+
+            bookImage6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 6;
+                    pointer = "bookImage6";
+                }
+            });
+
+            bookImage7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openBookImage();
+                    flag = 7;
+                    pointer = "bookImage7";
+                }
+            });
+
+
+            bookname.setText(bookName);
+            bookdesigner.setText(bookDesigner);
+            bookdesc.setText(bookDesc);
+            bookcategory.setText(bookCategoryID);
+            booksubcategory.setText(bookSubCategoryID);
+            bookprice160Pages.setText(bookPrice160Pages);
+            bookprice200Pages.setText(bookPrice200Pages);
+            bookprice240Pages.setText(bookPrice240Pages);
+
+            FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
+            databaseReference1 = firebaseDatabase1.getReference().child("BookDetails")
+                    .child(bookCategoryID).child(bookSubCategoryID)
+                    .child(bookID);
+
+
+            Log.v("TAG","BookCAtegory"+bookCategoryID);
+            Log.v("TAG","BookCAtegory"+bookSubCategoryID);
+            Log.v("TAG","BookCAtegory"+bookID);
+            databaseReference1.child("BookImages").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    BookModal booksmodal = dataSnapshot.getValue(BookModal.class);
+                    Log.v("TAG","IAmge1:"+booksmodal.getImage1());
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage1())
+                            .centerCrop()
+                            .into(bookImage1);
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage2())
+                            .centerCrop()
+                            .into(bookImage2);
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage3())
+                            .centerCrop()
+                            .into(bookImage3);
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage4())
+                            .centerCrop()
+                            .into(bookImage4);
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage5())
+                            .centerCrop()
+                            .into(bookImage5);
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage6())
+                            .centerCrop()
+                            .into(bookImage6);
+                    Glide
+                            .with(getContext())
+                            .load(booksmodal.getImage7())
+                            .centerCrop()
+                            .into(bookImage7);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
+
+
+
+
+            updateText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String bookNameStr = bookname.getText().toString();
+                    String bookPrice160PagesStr = bookprice160Pages.getText().toString();
+                    String bookPrice200PagesStr = bookprice200Pages.getText().toString();
+                    String bookPrice240PagesStr = bookprice240Pages.getText().toString();
+                    String bookDescStr = bookdesc.getText().toString();
+                    String bookDesignerStr = bookdesigner.getText().toString();
+                    String bookCategoryStr = bookcategory.getText().toString();
+                    String bookSubCategoryStr = booksubcategory.getText().toString();
+
+                    editBookMap.put("BookName", bookname.getText().toString());
+                    editBookMap.put("BookPrice160Pages", bookprice160Pages.getText().toString());
+                    editBookMap.put("BookPrice200Pages", bookprice200Pages.getText().toString());
+                    editBookMap.put("BookPrice240Pages", bookprice240Pages.getText().toString());
+                    editBookMap.put("BookDesc", bookdesc.getText().toString());
+                    editBookMap.put("BookCategory", bookcategory.getText().toString());
+                    editBookMap.put("BookSubCategory", booksubcategory.getText().toString());
+                    editBookMap.put("BookDesigner", bookdesigner.getText().toString());
+                    editBookMap.put("BookID", bookID);
+
+                    FirebaseDatabase firebaseDatabase10 = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference10 = firebaseDatabase10.getReference();
+                    databaseReference10.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).updateChildren(editBookMap);
+
+                    Toasty.success(getContext(),"Update Successfull").show();
+                    dismiss();
+                }
+            });
+
+
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openUpdateBook(bookID);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    });
-
-    bookImage2.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 2;
-        }
-    });
-
-    bookImage3.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 3;
-        }
-    });
-
-
-    bookImage4.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 4;
-        }
-    });
-    bookImage5.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 5;
-        }
-    });
-
-    bookImage6.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 6;
-        }
-    });
-
-    bookImage7.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openBookImage();
-            flag = 7;
-        }
-    });
-
-
-    bookname.setText(bookModel.getBookName());
-    bookdesigner.setText(bookModel.getBookDesigner());
-    bookdesc.setText(bookModel.getBookDesc());
-    bookcategory.setText(bookCategoryID);
-    booksubcategory.setText(bookSubCategoryID);
-    bookprice160Pages.setText(bookModel.getBookPrice160Pages());
-    bookprice200Pages.setText(bookModel.getBookPrice200Pages());
-    bookprice240Pages.setText(bookModel.getBookPrice240Pages());
-
-
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage1())
-            .centerCrop()
-            .into(bookImage1);
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage2())
-            .centerCrop()
-            .into(bookImage2);
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage3())
-            .centerCrop()
-            .into(bookImage3);
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage4())
-            .centerCrop()
-            .into(bookImage4);
-
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage5())
-            .centerCrop()
-            .into(bookImage5);
-
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage6())
-            .centerCrop()
-            .into(bookImage6);
-
-    Glide
-            .with(getContext())
-            .load(bookModel.getBookImages().getImage7())
-            .centerCrop()
-            .into(bookImage7);
-
-
-
-    if (bookModel.getBookCategory().equals("Engineering")) {
-        addPhotoCard5.setVisibility(View.VISIBLE);
-        addPhotoCard6.setVisibility(View.VISIBLE);
-        addPhotoCard7.setVisibility(View.VISIBLE);
-    } else {
-        addPhotoCard5.setVisibility(View.GONE);
-        addPhotoCard6.setVisibility(View.GONE);
-        addPhotoCard7.setVisibility(View.GONE);
-    }
-
-
-    update.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openUpdateBook(bookModel.getBookID());
-        }
-    });
-}catch (Exception e){
-    e.printStackTrace();
-}
     }
 
     @Override
@@ -321,31 +418,38 @@ try {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null);
+        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null)
+            ;
 
-        imageuri.add(data.getData());
 
         switch (flag) {
             case 1:
-                bookImage1.setImageURI(imageuri.get(0));
+                bookImage1.setImageURI(data.getData());
+                imageuri.set(0, data.getData().toString());
                 break;
             case 2:
-                bookImage2.setImageURI(imageuri.get(1));
+                bookImage2.setImageURI(data.getData());
+                imageuri.set(1, data.getData().toString());
                 break;
             case 3:
-                bookImage3.setImageURI(imageuri.get(2));
+                bookImage3.setImageURI(data.getData());
+                imageuri.set(2, data.getData().toString());
                 break;
             case 4:
-                bookImage4.setImageURI(imageuri.get(3));
+                bookImage4.setImageURI(data.getData());
+                imageuri.set(3, data.getData().toString());
                 break;
             case 5:
-                bookImage5.setImageURI(imageuri.get(4));
+                bookImage5.setImageURI(data.getData());
+                imageuri.set(4, data.getData().toString());
                 break;
             case 6:
-                bookImage6.setImageURI(imageuri.get(5));
+                bookImage6.setImageURI(data.getData());
+                imageuri.set(5, data.getData().toString());
                 break;
             case 7:
-                bookImage7.setImageURI(imageuri.get(6));
+                bookImage7.setImageURI(data.getData());
+                imageuri.set(6, data.getData().toString());
                 break;
         }
     }
@@ -380,20 +484,28 @@ try {
             editBookMap.put("BookCategory", bookcategory.getText().toString());
             editBookMap.put("BookSubCategory", booksubcategory.getText().toString());
             editBookMap.put("BookDesigner", bookdesigner.getText().toString());
-            editBookMap.put("BookId", bookID);
+            editBookMap.put("BookID", bookID);
             for (int i = 0; i < imageuri.size(); i++) {
-                uploadImage(imageuri.get(i), i, imageuri.size());
+                if (imageuri.get(i).matches("Hello")) {
+                    continue;
+                }
+                Log.v("TAG", "ImageUri:" + imageuri.get(i));
+                uploadImage(Uri.parse(imageuri.get(i)), i, imageuri.size());
+                if (i == imageuri.size()-1)
+                {
+                    dismiss();
+                }
+
+
             }
 
         }
 
     }
 
-    public void uploadImage(Uri uri, int count, final int imagesCount) {
+    public void uploadImage(Uri uri, final int count, final int imagesCount) {
         final int count11 = count + 1;
-
-
-        final StorageReference reference = mStorageRef.child("image" + Integer.toString(count) + "." + getExtension(imageuri.get(count)));
+        final StorageReference reference = mStorageRef.child("image" + Integer.toString(count) + "." + getExtension(Uri.parse(imageuri.get(count))));
         reference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -403,15 +515,16 @@ try {
                             @Override
                             public void onSuccess(Uri uri) {
                                 addImagesMap.put("Image" + count11, uri.toString());
-                                editBookMap.put("BookImage", addImagesMap.get("Image1"));
                                 Toasty.success(getContext(), "Book Image Editted Successfully").show();
-                                if (count11 == imagesCount) {
-                                    FirebaseDatabase firebaseDatabase11 = FirebaseDatabase.getInstance();
-                                    DatabaseReference databaseReference11 = firebaseDatabase11.getReference();
-                                    DatabaseReference databaseReference12 = firebaseDatabase11.getReference();
-                                    databaseReference12.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).setValue(editBookMap);
-                                    databaseReference11.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).child("BookImages").setValue(addImagesMap);
-                                    Toasty.success(getContext(), "Book Editted Successfully").show();
+                                FirebaseDatabase firebaseDatabase11 = FirebaseDatabase.getInstance();
+                                DatabaseReference databaseReference11 = firebaseDatabase11.getReference();
+                                DatabaseReference databaseReference12 = firebaseDatabase11.getReference();
+                                //databaseReference12.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).updateChildren(editBookMap);
+                                databaseReference11.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).child("BookImages").updateChildren(addImagesMap);
+                                Toasty.success(getContext(), "Book Editted Successfully").show();
+                                if (count == 0)
+                                {
+                                    databaseReference1.child("BookImage").setValue(uri.toString());
                                 }
 
                             }

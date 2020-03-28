@@ -133,6 +133,19 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <Button
+            android:id="@+id/update"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Upload Photos"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/latoblack"
+            android:background="@drawable/button_shape"/>
+
+
+
         <EditText
             android:id="@+id/bookName"
             android:layout_width="320dp"
@@ -143,6 +156,8 @@
             android:fontFamily="@font/montserrat_regular"
             android:padding="10dp"
             android:textSize="18sp" />
+
+
 
         <EditText
             android:id="@+id/designerName"
@@ -274,7 +289,8 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/update"
+
+            android:id="@+id/updatePhotos"
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
             android:layout_width="300dp"
