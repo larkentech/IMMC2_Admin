@@ -527,13 +527,13 @@ public class EditAlertFragment extends DialogFragment {
                             @Override
                             public void onSuccess(Uri uri) {
                                 addImagesMap.put("Image" + count11, uri.toString());
-                                Toasty.success(getContext(), "Book Image Editted Successfully").show();
+                                //Toasty.success(getContext(), "Book Image Editted Successfully").show();
                                 FirebaseDatabase firebaseDatabase11 = FirebaseDatabase.getInstance();
                                 DatabaseReference databaseReference11 = firebaseDatabase11.getReference();
                                 DatabaseReference databaseReference12 = firebaseDatabase11.getReference();
                                 //databaseReference12.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).updateChildren(editBookMap);
                                 databaseReference11.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).child("BookImages").updateChildren(addImagesMap);
-                                Toasty.success(getContext(), "Book Editted Successfully").show();
+                                //Toasty.success(getContext(), "Book Editted Successfully").show();
                                 if (count == 0)
                                 {
                                     databaseReference1.child("BookImage").setValue(uri.toString());

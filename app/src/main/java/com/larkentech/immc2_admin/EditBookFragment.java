@@ -104,6 +104,10 @@ public class EditBookFragment extends Fragment {
             }
         });
 
+        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,categoryList);
+        dataAdapter1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        s1.setAdapter(dataAdapter1);
+
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 

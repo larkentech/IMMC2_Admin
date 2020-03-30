@@ -80,6 +80,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
         BookPrice240Pages.setText("Rs." + bookModal.getBookPrice240Pages() + "/-");
         BooksName.setText(bookModal.getBookName());
         BookDesc.setText(bookModal.getBookDesc());
+        BooksDesigner.setText("Designed By "+bookModal.getBookDesigner());
 
         Glide
                 .with(getContext())
@@ -87,7 +88,7 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
                 .centerCrop()
                 .into(BookImage);
 
-        BooksDesigner.setText("Designed By "+bookModal.getBookDesigner());
+
         booksmodal = new BookModal();
         args = new Bundle();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

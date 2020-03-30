@@ -32,7 +32,7 @@ public class DetailsContainerActivity extends AppCompatActivity {
 
             case "EditBook":
                 FragmentManager manager1 = getSupportFragmentManager();
-                EditBookFragment editBookFragment = new EditBookFragment();
+                EditFragmentRevised editBookFragment = new EditFragmentRevised();
                 FragmentTransaction transaction1 = manager1.beginTransaction();
                 transaction1.replace(R.id.detailsActivityContainer,editBookFragment);
                 transaction1.commit();
