@@ -383,6 +383,9 @@ public class EditAlertFragment extends DialogFragment {
 
                     Toasty.success(getContext(),"Update Successfull").show();
                     dismiss();
+                    Intent x = new Intent(getContext(),MainActivity.class);
+                    startActivity(x);
+                    getActivity().finish();
                 }
             });
 
@@ -495,6 +498,9 @@ public class EditAlertFragment extends DialogFragment {
                 if (i == imageuri.size()-1)
                 {
                     dismiss();
+                    Intent x = new Intent(getContext(),MainActivity.class);
+                    startActivity(x);
+                    getActivity().finish();
                 }
 
 
@@ -531,6 +537,7 @@ public class EditAlertFragment extends DialogFragment {
                                 if (count == 0)
                                 {
                                     databaseReference1.child("BookImage").setValue(uri.toString());
+
                                 }
 
                             }

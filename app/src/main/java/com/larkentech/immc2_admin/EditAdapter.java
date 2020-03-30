@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -39,14 +40,16 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
     EditAlertFragment alertDialog;
     BookModal booksmodal;
     Bundle args;
+    Fragment fragment;
 
 
 
-    public EditAdapter(@NonNull Context context, int resource, @NonNull List<BookModal> objects, List<String> bookId, Activity activity) {
+    public EditAdapter(@NonNull Context context, int resource, @NonNull List<BookModal> objects, List<String> bookId, Activity activity, Fragment fragment) {
         super(context, resource, objects);
         this.bookID = bookId;
         this.context = context;
         this.activity = activity;
+        this.fragment = fragment;
     }
 
 
@@ -102,7 +105,6 @@ public class EditAdapter extends ArrayAdapter<BookModal> {
 
                 if (bookModal.getBookCategory().matches("Engineering"))
                 {
-
                     args.putString("Image5",booksmodal.getImage5());
                     args.putString("Image6",booksmodal.getImage6());
                     args.putString("Image7",booksmodal.getImage7());

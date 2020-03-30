@@ -155,7 +155,7 @@ public class EditBookFragment extends Fragment {
 
                 selectedListView = view.findViewById(R.id.editListView);
                 List<BookModal> selectedList = new ArrayList<>();
-                editAdapter = new EditAdapter(getContext(), R.layout.single_edit_item, selectedList, BookID, getActivity());
+                editAdapter = new EditAdapter(getContext(), R.layout.single_edit_item, selectedList, BookID, getActivity(),EditBookFragment.this);
                 selectedListView.setAdapter(editAdapter);
 
                 firebaseDatabase = FirebaseDatabase.getInstance();
