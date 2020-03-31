@@ -161,20 +161,11 @@ public class ActivityTrackerFragment extends Fragment {
         });
 
 
+
+
         getBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> names = new ArrayList<String>();
-
-                SparseBooleanArray checkedPositions = trackerList.getCheckedItemPositions ();
-                int size = checkedPositions.size ();
-                for (int i=0 ; i<size ; i++) {
-                    // We get the key stored at the index 'i'
-                    int key = checkedPositions.keyAt (i);
-                    // We get the boolean value with the key
-                    Log.i ("Tag", "checkedPositions(" + key + ")=" + checkedPositions.get (key));
-                }
-
             }
         });
 
