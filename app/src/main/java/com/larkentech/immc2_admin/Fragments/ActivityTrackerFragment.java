@@ -1,5 +1,9 @@
 package com.larkentech.immc2_admin.Fragments;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +15,7 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,12 +24,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.larkentech.immc2_admin.Adapters.ActivityTrackerAdapter;
 import com.larkentech.immc2_admin.ModalClasses.ActivityTrackerModal;
 import com.larkentech.immc2_admin.R;
@@ -32,10 +42,14 @@ import com.larkentech.immc2_admin.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import es.dmoral.toasty.Toasty;
+
+import static android.app.Activity.RESULT_OK;
+import static com.larkentech.immc2_admin.AddBookFragment.IMAGE_CODE;
+
+
 public class ActivityTrackerFragment extends Fragment {
 
     ImageView trackerImage;
@@ -50,6 +64,17 @@ public class ActivityTrackerFragment extends Fragment {
     DatabaseReference databaseReferenceTracker;
 
     ActivityTrackerAdapter adapter;
+
+    List<String> bookID;
+    List<String> category;
+    List<String> subcategory;
+
+    String _trackerName;
+    Uri uri;
+
+    boolean flag = false;
+    StorageReference mStorageRef;
+    ProgressDialog progressDialog;
 
 
     public ActivityTrackerFragment() {
@@ -67,6 +92,9 @@ public class ActivityTrackerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("ActivityTrackers");
+        progressDialog = new ProgressDialog(getContext());
 
        /* FirebaseDatabase firebaseDatabaseTracker = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReferenceTracker = firebaseDatabaseTracker.getReference().child("BookDetails");
@@ -120,6 +148,9 @@ public class ActivityTrackerFragment extends Fragment {
 
             }
         }); */
+       bookID = new ArrayList<>();
+       category = new ArrayList<>();
+       subcategory = new ArrayList<>();
 
         trackerImage = view.findViewById(R.id.activityTrackerImage);
         trackerName = view.findViewById(R.id.trackerCategoryEt);
@@ -162,10 +193,62 @@ public class ActivityTrackerFragment extends Fragment {
 
 
 
+        trackerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag = true;
+                openBookImage();
+            }
+        });
+
 
         getBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                _trackerName = trackerName.getText().toString();
+                if (_trackerName.matches(""))
+                {
+                    Toasty.success(getContext(),"Please Enter the Subcategory Name").show();
+                }
+                else {
+                    for (int i=0;i<trackerList.getCount();i++) {
+                        v = trackerList.getAdapter().getView(i, null, null);
+                        CheckBox checkbox = v.findViewById(R.id.checkBoxList);
+                        TextView bookName = v.findViewById(R.id.bookNameTracker);
+                        if (checkbox.isChecked())
+                        {
+
+                            bookID.add(adapter.SelectedBook.get(i));
+                            category.add(adapter.selectedBookCategory.get(i));
+                            subcategory.add(adapter.selectedBookSubCategory.get(i));
+
+                        }
+                    }
+                    Log.v("TAG","BookID=>"+bookID);
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+
+                    if (flag)
+                        uploadImage();
+
+                    DatabaseReference databaseReference = firebaseDatabase.getReference();
+                    HashMap<String,String> activityTrackers = new HashMap<>();
+                    for (int i=0;i<bookID.size();i++)
+                    {
+                        activityTrackers.put("BookID",bookID.get(i));
+                        activityTrackers.put("BookCategory",category.get(i));
+                        activityTrackers.put("BookSubCategory",subcategory.get(i));
+                        databaseReference.child("Activity Trackers").child(_trackerName).child(bookID.get(i)).setValue(activityTrackers);
+
+                    }
+                }
+
+
+
+
+
+
             }
         });
 
@@ -174,4 +257,63 @@ public class ActivityTrackerFragment extends Fragment {
 
 
     }
+
+    public void openBookImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null)
+            ;
+        trackerImage.setImageURI(data.getData());
+        uri = data.getData();
+    }
+
+    public void uploadImage(){
+        progressDialog.setTitle("Uploading Photo");
+        progressDialog.show();
+        final int max = 10;
+        final int min = 1;
+        final int random = new Random().nextInt((max-min) + 1) + min;
+        final StorageReference reference = mStorageRef.child(random+ "." + getExtension(uri));
+        reference.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                DatabaseReference databaseReference = trackerFirebaseDatabase.getReference();
+                                databaseReference.child("ActivityTrackersImages").child(_trackerName).setValue(uri.toString());
+                                progressDialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+
+                    }
+                });
+
+    }
+
+    private String getExtension(Uri uri) {
+
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+
+
 }

@@ -39,7 +39,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Get Book List"
+                android:text="Create Tracker"
                 android:textSize="14sp"
                 android:maxLines="1"
                 android:layout_marginTop="8dp"

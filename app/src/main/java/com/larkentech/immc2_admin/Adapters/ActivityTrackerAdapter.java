@@ -27,15 +27,15 @@ public class ActivityTrackerAdapter extends ArrayAdapter<ActivityTrackerModal> {
 
     List<ActivityTrackerModal> listData;
     boolean[] _checkbox;
-    List<String> SelectedBook = new ArrayList<>();
-    List<String> selectedBookCategory = new ArrayList<>();
-    List<String> selectedBookSubCategory = new ArrayList<>();
+    public List<String> SelectedBook = new ArrayList<>();
+    public List<String> selectedBookCategory = new ArrayList<>();
+    public List<String> selectedBookSubCategory = new ArrayList<>();
 
 
     public ActivityTrackerAdapter(@NonNull Context context, int resource, @NonNull List<ActivityTrackerModal> objects) {
         super(context, resource, objects);
         this.listData = objects;
-        _checkbox = new boolean[51];
+        _checkbox = new boolean[100];
     }
 
     @NonNull
@@ -46,6 +46,10 @@ public class ActivityTrackerAdapter extends ArrayAdapter<ActivityTrackerModal> {
         }
 
         final ActivityTrackerModal modal = getItem(position);
+
+        selectedBookCategory.add(modal.getCategory());
+        selectedBookSubCategory.add(modal.getSubCategory());
+        SelectedBook.add(modal.getBookID());
 
         ImageView image = convertView.findViewById(R.id.singleBookImageTracker);
         TextView name = convertView.findViewById(R.id.bookNameTracker);
@@ -61,7 +65,6 @@ public class ActivityTrackerAdapter extends ArrayAdapter<ActivityTrackerModal> {
                 .into(image);
         checkBox.setChecked(_checkbox[position]);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 _checkbox[position] = isChecked;
