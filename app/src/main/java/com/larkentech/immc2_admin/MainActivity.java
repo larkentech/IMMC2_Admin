@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     CardView editBook;
     CardView deleteBook;
     CardView orders;
+    CardView activityTracker;
     Button signout;
     CardView feedback;
     FirebaseDatabase firebaseDatabase;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         deleteBook = (CardView) findViewById(R.id.deleteBook);
         orders = (CardView) findViewById(R.id.orders);
         feedback = (CardView) findViewById(R.id.feedback);
+        activityTracker = (CardView)findViewById(R.id.activityTracker);
 
         admiLoginId = findViewById(R.id.adminLoginId);
 
@@ -98,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openOrders();
+            }
+        });
+
+        activityTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+                intent.putExtra("Category","ActivityTracker");
+                startActivity(intent);
             }
         });
 

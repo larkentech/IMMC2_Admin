@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.larkentech.immc2_admin.Fragments.ActivityTrackerFragment;
+
 public class DetailsContainerActivity extends AppCompatActivity {
 
     FrameLayout detailsActivityContainer;
@@ -58,6 +60,13 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 FragmentTransaction transaction4 = manager4.beginTransaction();
                 transaction4.replace(R.id.detailsActivityContainer,feedbackFragment);
                 transaction4.commit();
+                break;
+            case "ActivityTracker":
+                FragmentManager manager5 = getSupportFragmentManager();
+                ActivityTrackerFragment activityTrackerFragment = new ActivityTrackerFragment();
+                FragmentTransaction transaction5 = manager5.beginTransaction();
+                transaction5.replace(R.id.detailsActivityContainer,activityTrackerFragment);
+                transaction5.commit();
                 break;
 
 
