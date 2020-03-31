@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.EditAlertFragmentRevised"
+    android:background="#EDEBEB">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard1"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard2"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard3"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard4"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard5"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard6"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/addPhotoCard7"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="240dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="10dp"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/bookImage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/add_photo"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/update"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Upload Photos"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/latoblack"
+            android:background="@drawable/button_shape"/>
+
+
+
+        <EditText
+            android:id="@+id/bookName"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:hint="Book Name"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+
+
+        <EditText
+            android:id="@+id/designerName"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:hint="Designer Name"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/categorySpinner"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:hint="Category"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:entries="@array/book_category"/>
+
+        <EditText
+            android:id="@+id/subCategorySpinner"
+            android:background="@drawable/edit_text_shape1"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_width="300dp"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:hint="Sub-Category"
+
+            android:layout_height="40dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="160 pages- Rs."
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/price1"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Price in Rs."
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200 pages- Rs."
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/price2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Price in Rs."
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="40dp">
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="240 pages- Rs."
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/price3"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Price in Rs."
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="340dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:hint="Description"
+            android:gravity="top|left"
+            android:background="@drawable/edit_text_shape1"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <Button
+
+            android:id="@+id/updatePhotos"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Update changes"
+            android:textColor="#ffffff"
+            android:fontFamily="@font/latoblack"
+            android:background="@drawable/button_shape"/>
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>
