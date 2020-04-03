@@ -15,16 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.larkentech.immc2_admin.BookDetailsEditActivity;
-import com.larkentech.immc2_admin.BookModal;
-import com.larkentech.immc2_admin.EditAlertFragment;
+import com.larkentech.immc2_admin.ModalClasses.BookModal;
 import com.larkentech.immc2_admin.Fragments.EditAlertFragmentRevised;
 import com.larkentech.immc2_admin.R;
 

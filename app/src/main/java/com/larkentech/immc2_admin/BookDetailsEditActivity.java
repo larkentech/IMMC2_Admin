@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.larkentech.immc2_admin.ModalClasses.BookModal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,6 +105,7 @@ public class BookDetailsEditActivity extends AppCompatActivity {
     HashMap<String, Object> addImagesMap = new HashMap<>();
     public static final int IMAGE_CODE = 1;
     List<String> imageuri = new ArrayList<>();
+    int totalImages = 4;
 
     StorageReference mStorageRef;
 
@@ -113,7 +115,7 @@ public class BookDetailsEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details_edit);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("NewBooks");
+        mStorageRef = FirebaseStorage.getInstance().getReference("BookImages");
         progressDialog = new ProgressDialog(this);
 
         //Initial Setting of imageUri
@@ -155,7 +157,9 @@ public class BookDetailsEditActivity extends AppCompatActivity {
             imageuri.add("Hello");
             imageuri.add("Hello");
             imageuri.add("Hello");
+            totalImages = 7;
         } else {
+            totalImages = 4;
             addPhotoCard5.setVisibility(View.GONE);
             addPhotoCard6.setVisibility(View.GONE);
             addPhotoCard7.setVisibility(View.GONE);
@@ -345,7 +349,10 @@ public class BookDetailsEditActivity extends AppCompatActivity {
         final int min = 1;
         final int random = new Random().nextInt((max-min) + 1) + min;
 
-        final StorageReference reference = mStorageRef.child(random+ "." + getExtension(parse));
+        final StorageReference reference = mStorageRef.child(bookCategoryID)
+                .child(bookSubCategoryID)
+                .child(bookID)
+                .child("Image"+count11+ "." + getExtension(parse));
         reference.putFile(parse)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -362,7 +369,7 @@ public class BookDetailsEditActivity extends AppCompatActivity {
                                 //databaseReference12.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).updateChildren(editBookMap);
                                 databaseReference11.child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID).child("BookImages").updateChildren(addImagesMap);
                                 //Toasty.success(getContext(), "Book Editted Successfully").show();
-                                if (i == 0)
+                                if (count11 == totalImages)
                                 {
                                     databaseReference1.child("BookImage").setValue(uri.toString());
 

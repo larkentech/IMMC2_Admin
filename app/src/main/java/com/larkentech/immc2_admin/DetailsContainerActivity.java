@@ -7,6 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.larkentech.immc2_admin.Fragments.ActivityTrackerFragment;
+import com.larkentech.immc2_admin.Fragments.AddBookFragment;
+import com.larkentech.immc2_admin.Fragments.DeleteBookFragment;
+import com.larkentech.immc2_admin.Fragments.EditFragmentRevised;
+import com.larkentech.immc2_admin.Fragments.FeedbackFragment;
+import com.larkentech.immc2_admin.Fragments.OrdersFragment;
 
 public class DetailsContainerActivity extends AppCompatActivity {
 

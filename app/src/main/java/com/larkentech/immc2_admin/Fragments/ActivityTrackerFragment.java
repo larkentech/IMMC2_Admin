@@ -11,18 +11,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,7 +43,7 @@ import java.util.Random;
 import es.dmoral.toasty.Toasty;
 
 import static android.app.Activity.RESULT_OK;
-import static com.larkentech.immc2_admin.AddBookFragment.IMAGE_CODE;
+import static com.larkentech.immc2_admin.Fragments.AddBookFragment.IMAGE_CODE;
 
 
 public class ActivityTrackerFragment extends Fragment {
@@ -148,6 +144,7 @@ public class ActivityTrackerFragment extends Fragment {
 
             }
         }); */
+
        bookID = new ArrayList<>();
        category = new ArrayList<>();
        subcategory = new ArrayList<>();
@@ -231,7 +228,6 @@ public class ActivityTrackerFragment extends Fragment {
 
                     if (flag)
                         uploadImage();
-
                     DatabaseReference databaseReference = firebaseDatabase.getReference();
                     HashMap<String,String> activityTrackers = new HashMap<>();
                     for (int i=0;i<bookID.size();i++)
