@@ -415,40 +415,40 @@ public class EditAlertFragment extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null)
-            ;
+        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null) {
 
 
-        switch (flag) {
-            case 1:
-                bookImage1.setImageURI(data.getData());
-                imageuri.set(0, data.getData().toString());
-                break;
-            case 2:
-                bookImage2.setImageURI(data.getData());
-                imageuri.set(1, data.getData().toString());
-                break;
-            case 3:
-                bookImage3.setImageURI(data.getData());
-                imageuri.set(2, data.getData().toString());
-                break;
-            case 4:
-                bookImage4.setImageURI(data.getData());
-                imageuri.set(3, data.getData().toString());
-                break;
-            case 5:
-                bookImage5.setImageURI(data.getData());
-                imageuri.set(4, data.getData().toString());
-                break;
-            case 6:
-                bookImage6.setImageURI(data.getData());
-                imageuri.set(5, data.getData().toString());
-                break;
-            case 7:
-                bookImage7.setImageURI(data.getData());
-                imageuri.set(6, data.getData().toString());
-                break;
-        }
+            switch (flag) {
+                case 1:
+                    bookImage1.setImageURI(data.getData());
+                    imageuri.set(0, data.getData().toString());
+                    break;
+                case 2:
+                    bookImage2.setImageURI(data.getData());
+                    imageuri.set(1, data.getData().toString());
+                    break;
+                case 3:
+                    bookImage3.setImageURI(data.getData());
+                    imageuri.set(2, data.getData().toString());
+                    break;
+                case 4:
+                    bookImage4.setImageURI(data.getData());
+                    imageuri.set(3, data.getData().toString());
+                    break;
+                case 5:
+                    bookImage5.setImageURI(data.getData());
+                    imageuri.set(4, data.getData().toString());
+                    break;
+                case 6:
+                    bookImage6.setImageURI(data.getData());
+                    imageuri.set(5, data.getData().toString());
+                    break;
+                case 7:
+                    bookImage7.setImageURI(data.getData());
+                    imageuri.set(6, data.getData().toString());
+                    break;
+            }
+        }else{}
     }
 
     private String getExtension(Uri uri) {

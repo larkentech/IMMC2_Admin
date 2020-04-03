@@ -116,6 +116,7 @@ public class AddBookFragment extends Fragment {
     int imagesCount1;
     int totalImages = 4;
     HashMap<String, Object> addBookMap = new HashMap<>();
+    HashMap<String, Object> addBookMap1 = new HashMap<>();
     ProgressDialog progress;
 
 
@@ -367,41 +368,40 @@ public class AddBookFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == IMAGE_CODE && requestCode == RESULT_OK)
-        ;
-            switch (flag)
-            {
+        if(requestCode == IMAGE_CODE && requestCode == RESULT_OK) {
+            switch (flag) {
                 case 1:
-                    imageuri.add(0,data.getData());
+                    imageuri.add(0, data.getData());
                     bookImage1.setImageURI(imageuri.get(0));
                     break;
                 case 2:
-                    imageuri.add(1,data.getData());
+                    imageuri.add(1, data.getData());
                     bookImage2.setImageURI(imageuri.get(1));
                     break;
                 case 3:
-                    imageuri.add(2,data.getData());
+                    imageuri.add(2, data.getData());
                     bookImage3.setImageURI(imageuri.get(2));
                     break;
                 case 4:
-                    imageuri.add(3,data.getData());
+                    imageuri.add(3, data.getData());
                     bookImage4.setImageURI(imageuri.get(3));
                     break;
                 case 5:
-                    imageuri.add(4,data.getData());
+                    imageuri.add(4, data.getData());
                     bookImage5.setImageURI(imageuri.get(4));
                     break;
                 case 6:
-                    imageuri.add(5,data.getData());
+                    imageuri.add(5, data.getData());
                     bookImage6.setImageURI(imageuri.get(5));
                     break;
                 case 7:
-                    imageuri.add(6,data.getData());
+                    imageuri.add(6, data.getData());
                     bookImage7.setImageURI(imageuri.get(6));
                     break;
 
 
-        }
+            }
+        }else{}
 
     }
 
@@ -440,6 +440,12 @@ public class AddBookFragment extends Fragment {
                 addBookMap.put("BookCategory",s1.getSelectedItem().toString());
                 addBookMap.put("BookSubCategory",s2.getSelectedItem().toString());
                 addBookMap.put("BookID",pushKEY);
+
+                addBookMap1.put(bookNameStr,pushKEY);
+                addBookMap1.put("BookName",bookName.getText().toString());
+                addBookMap1.put("BookCategory",s1.getSelectedItem().toString());
+                addBookMap1.put("BookSubCategory",s2.getSelectedItem().toString());
+                addBookMap1.put("BookID",pushKEY);
                 for (int i=0;i<imageuri.size();i++)
                 {
                     if (imageuri.get(i).toString().matches("Hello"))
@@ -487,10 +493,12 @@ public class AddBookFragment extends Fragment {
                                     FirebaseDatabase firebaseDatabase11 = FirebaseDatabase.getInstance();
                                     DatabaseReference databaseReference11 = firebaseDatabase11.getReference();
                                     DatabaseReference databaseReference12 = firebaseDatabase11.getReference();
+                                    DatabaseReference databaseReference13 = firebaseDatabase11.getReference();
                                     Toasty.success(getContext(), "Book Added Successfully").show();
                                     progress.dismiss();
                                     databaseReference12.child("BookDetails").child(bookCategoryStr).child(bookSubCategoryStr).child(pushKEY).setValue(addBookMap);
                                     databaseReference11.child("BookDetails").child(bookCategoryStr).child(bookSubCategoryStr).child(pushKEY).child("BookImages").updateChildren(addImagesMap);
+                                    databaseReference13.child("BooksListNames").child(pushKEY).updateChildren(addBookMap1);
                                     Intent i = new Intent(getActivity(), MainActivity.class);
                                     startActivity(i);
                                     getActivity().finish();

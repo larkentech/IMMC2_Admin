@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     CardView deleteBook;
     CardView orders;
     CardView activityTracker;
+    CardView offerImage;
+    CardView comingSoon;
     Button signout;
     CardView feedback;
     FirebaseDatabase firebaseDatabase;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         orders = (CardView) findViewById(R.id.orders);
         feedback = (CardView) findViewById(R.id.feedback);
         activityTracker = (CardView)findViewById(R.id.activityTracker);
+        offerImage = (CardView) findViewById(R.id.newOffers);
+        comingSoon = (CardView) findViewById(R.id.comingSoon);
 
         admiLoginId = findViewById(R.id.adminLoginId);
 
@@ -108,6 +112,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
                 intent.putExtra("Category","ActivityTracker");
+                startActivity(intent);
+            }
+        });
+
+        offerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+                intent.putExtra("Category","OffersImage");
+                startActivity(intent);
+            }
+        });
+
+        comingSoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),DetailsContainerActivity.class);
+                intent.putExtra("Category","ComingSoon");
                 startActivity(intent);
             }
         });

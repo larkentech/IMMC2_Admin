@@ -1,16 +1,21 @@
 package com.larkentech.immc2_admin;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.larkentech.immc2_admin.Fragments.ActivityTrackerFragment;
 import com.larkentech.immc2_admin.Fragments.AddBookFragment;
+import com.larkentech.immc2_admin.Fragments.ComingSoonFragment;
 import com.larkentech.immc2_admin.Fragments.DeleteBookFragment;
 import com.larkentech.immc2_admin.Fragments.EditFragmentRevised;
 import com.larkentech.immc2_admin.Fragments.FeedbackFragment;
+import com.larkentech.immc2_admin.Fragments.OffersImageFragment;
 import com.larkentech.immc2_admin.Fragments.OrdersFragment;
 
 public class DetailsContainerActivity extends AppCompatActivity {
@@ -18,6 +23,7 @@ public class DetailsContainerActivity extends AppCompatActivity {
     FrameLayout detailsActivityContainer;
     String category;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +65,7 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 transaction3.replace(R.id.detailsActivityContainer,ordersFragment);
                 transaction3.commit();
                 break;
+
             case "Feedback":
                 FragmentManager manager4 = getSupportFragmentManager();
                 FeedbackFragment feedbackFragment = new FeedbackFragment();
@@ -66,6 +73,7 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 transaction4.replace(R.id.detailsActivityContainer,feedbackFragment);
                 transaction4.commit();
                 break;
+
             case "ActivityTracker":
                 FragmentManager manager5 = getSupportFragmentManager();
                 ActivityTrackerFragment activityTrackerFragment = new ActivityTrackerFragment();
@@ -74,7 +82,21 @@ public class DetailsContainerActivity extends AppCompatActivity {
                 transaction5.commit();
                 break;
 
+            case "OffersImage":
+                FragmentManager manager6 = getSupportFragmentManager();
+                OffersImageFragment offersImageFragment = new OffersImageFragment();
+                FragmentTransaction transaction6 = manager6.beginTransaction();
+                transaction6.replace(R.id.detailsActivityContainer,offersImageFragment);
+                transaction6.commit();
+                break;
 
+            case "ComingSoon":
+                FragmentManager manager7 = getSupportFragmentManager();
+                ComingSoonFragment comingSoonFragment = new ComingSoonFragment();
+                FragmentTransaction transaction7 = manager7.beginTransaction();
+                transaction7.replace(R.id.detailsActivityContainer,comingSoonFragment);
+                transaction7.commit();
+                break;
 
         }
     }

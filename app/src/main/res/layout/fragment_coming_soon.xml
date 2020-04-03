@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.ComingSoonFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/productName"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:hint="Product Name"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/add_photo"/>
+
+        <EditText
+            android:id="@+id/displayName"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:hint="Display Name"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/displayImage"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/add_photo"/>
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:hint="Enter Date"
+            android:focusable="false"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="340dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:hint="Description"
+            android:gravity="top|left"
+            android:background="@drawable/edit_text_shape1"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/addComingSoonBtn"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_shape"
+            android:fontFamily="@font/montserrat_black"
+            android:text="Add Book"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+</ScrollView>
