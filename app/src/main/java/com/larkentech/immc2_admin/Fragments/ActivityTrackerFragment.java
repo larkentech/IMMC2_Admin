@@ -239,18 +239,8 @@ public class ActivityTrackerFragment extends Fragment {
 
                     }
                 }
-
-
-
-
-
-
             }
         });
-
-
-
-
 
     }
 
@@ -264,10 +254,10 @@ public class ActivityTrackerFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null)
-            ;
-        trackerImage.setImageURI(data.getData());
-        uri = data.getData();
+        if (requestCode == IMAGE_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            trackerImage.setImageURI(data.getData());
+            uri = data.getData();
+        }
     }
 
     public void uploadImage(){

@@ -2,6 +2,7 @@ package com.larkentech.immc2_admin.AlertFragments;
 
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -117,6 +118,8 @@ public class EditAlertFragment extends DialogFragment {
     public String bookSubCategoryID;
     private BookModal bookModel;
 
+    ProgressDialog progress;
+
     Button updateText;
     DatabaseReference databaseReference1;
 
@@ -149,6 +152,9 @@ public class EditAlertFragment extends DialogFragment {
         image2 = getArguments().getString("Image2");
         image3 = getArguments().getString("Image3");
         image4 = getArguments().getString("Image4");
+        progress = new ProgressDialog(getContext());
+        progress.setTitle("Uploading Photos");
+        progress.setCancelable(false);
 
         imageuri.add("Hello");
         imageuri.add("Hello");
@@ -417,7 +423,6 @@ public class EditAlertFragment extends DialogFragment {
 
         if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null) {
 
-
             switch (flag) {
                 case 1:
                     bookImage1.setImageURI(data.getData());
@@ -459,6 +464,7 @@ public class EditAlertFragment extends DialogFragment {
     }
 
     public void openUpdateBook(String bookID) {
+        progress.show();
         String bookNameStr = bookname.getText().toString();
         String bookPrice160PagesStr = bookprice160Pages.getText().toString();
         String bookPrice200PagesStr = bookprice200Pages.getText().toString();
@@ -491,6 +497,7 @@ public class EditAlertFragment extends DialogFragment {
                 if (i == imageuri.size()-1)
                 {
                     dismiss();
+                    progress.dismiss();
                     Intent x = new Intent(getContext(),MainActivity.class);
                     startActivity(x);
                     getActivity().finish();

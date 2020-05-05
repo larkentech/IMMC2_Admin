@@ -1,5 +1,6 @@
 package com.larkentech.immc2_admin.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -71,6 +72,8 @@ public class OffersImageFragment extends Fragment {
     private List<String> categoryList = new ArrayList<String>();
     private List<String> subCategoryList = new ArrayList<String>();
 
+    ProgressDialog progress;
+
     public OffersImageFragment() {
         // Required empty public constructor
     }
@@ -94,6 +97,9 @@ public class OffersImageFragment extends Fragment {
         offerImage = (ImageView) view.findViewById(R.id.offerImage);
         offerBtn = (Button) view.findViewById(R.id.addOffer);
 
+        progress = new ProgressDialog(getContext());
+        progress.setTitle("Adding New Offer");
+        progress.setCancelable(false);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Query query = databaseReference.child("BookDetails");
@@ -170,13 +176,44 @@ public class OffersImageFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                progress.show();
+
+                final StorageReference reference=storageReference.child(System.currentTimeMillis()+"."+getExtension(imageUri));
+
+                reference.putFile(imageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        imageUrl = uri.toString();
+                                        addBookMap.put("OfferImage",imageUrl);
+                                    }
+                                });
+
+                                Toasty.success(getContext(),"Image Uploaded Successfully").show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                            }
+                        });
+
                 firebaseDatabase = FirebaseDatabase.getInstance();
                 databaseReference1 = firebaseDatabase.getReference();
-                addBookMap.put("OfferImage",imageUrl);
+
                 addBookMap.put("OfferCategory",categorySpinner.getSelectedItem().toString());
                 addBookMap.put("OfferSubCategory",subCategorySpinner.getSelectedItem().toString());
 
                 databaseReference1.child("Offers").push().setValue(addBookMap);
+
+                progress.dismiss();
 
                 Toasty.success(getContext(),"New Offer Added Successfully").show();
                 Intent i = new Intent(getActivity(), MainActivity.class);
@@ -208,37 +245,13 @@ public class OffersImageFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() !=null);
+        if(requestCode == IMAGE_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null) {
 
-        imageUri = data.getData();
-        offerImage.setImageURI(imageUri);
+            imageUri = data.getData();
+            offerImage.setImageURI(imageUri);
+        }
 
-        final StorageReference reference=storageReference.child(System.currentTimeMillis()+"."+getExtension(imageUri));
 
-        reference.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                imageUrl = uri.toString();
-
-                            }
-                        });
-
-                        Toasty.success(getContext(),"Image Uploaded Successfully").show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                    }
-                });
     }
 
 }
