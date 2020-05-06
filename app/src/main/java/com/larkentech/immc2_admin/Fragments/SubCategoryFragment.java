@@ -154,7 +154,7 @@ public class SubCategoryFragment extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() !=null);
+        if(requestCode == IMAGE_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null);
 
         imageUri = data.getData();
         subCategoryImage.setImageURI(imageUri);

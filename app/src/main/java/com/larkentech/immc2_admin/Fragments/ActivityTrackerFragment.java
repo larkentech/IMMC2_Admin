@@ -32,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.larkentech.immc2_admin.Adapters.ActivityTrackerAdapter;
+import com.larkentech.immc2_admin.MainActivity;
 import com.larkentech.immc2_admin.ModalClasses.ActivityTrackerModal;
 import com.larkentech.immc2_admin.R;
 
@@ -48,6 +49,7 @@ import static com.larkentech.immc2_admin.Fragments.AddBookFragment.IMAGE_CODE;
 
 public class ActivityTrackerFragment extends Fragment {
 
+    private static final int IMAGE_CODE = 1;
     ImageView trackerImage;
     TextView trackerName;
     Button getBooks;
@@ -145,9 +147,9 @@ public class ActivityTrackerFragment extends Fragment {
             }
         }); */
 
-       bookID = new ArrayList<>();
-       category = new ArrayList<>();
-       subcategory = new ArrayList<>();
+        bookID = new ArrayList<>();
+        category = new ArrayList<>();
+        subcategory = new ArrayList<>();
 
         trackerImage = view.findViewById(R.id.activityTrackerImage);
         trackerName = view.findViewById(R.id.trackerCategoryEt);
@@ -203,43 +205,68 @@ public class ActivityTrackerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 _trackerName = trackerName.getText().toString();
-                if (_trackerName.matches(""))
+                if (_trackerName.matches("") && flag)
                 {
-                    Toasty.success(getContext(),"Please Enter the Subcategory Name").show();
+                    Toasty.error(getContext(),"Please Enter the Subcategory Name").show();
                 }
                 else {
-                    for (int i=0;i<trackerList.getCount();i++) {
+                    for (int i = 0; i < trackerList.getCount(); i++) {
                         v = trackerList.getAdapter().getView(i, null, null);
                         CheckBox checkbox = v.findViewById(R.id.checkBoxList);
                         TextView bookName = v.findViewById(R.id.bookNameTracker);
+
                         if (checkbox.isChecked())
                         {
 
                             bookID.add(adapter.SelectedBook.get(i));
                             category.add(adapter.selectedBookCategory.get(i));
                             subcategory.add(adapter.selectedBookSubCategory.get(i));
-
                         }
+
+
                     }
-                    Log.v("TAG","BookID=>"+bookID);
 
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    Log.v("TAG","BooksCount=>"+bookID.size());
+
+                    if (bookID.size() == 0) {
+                        Toasty.error(getContext(),"Please select books to add.").show();
+                    }
+                    else {
+
+                        Log.v("TAG","BookID=>"+bookID);
+
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
 
-                    if (flag)
-                        uploadImage();
-                    DatabaseReference databaseReference = firebaseDatabase.getReference();
-                    HashMap<String,String> activityTrackers = new HashMap<>();
-                    for (int i=0;i<bookID.size();i++)
-                    {
-                        activityTrackers.put("BookID",bookID.get(i));
-                        activityTrackers.put("BookCategory",category.get(i));
-                        activityTrackers.put("BookSubCategory",subcategory.get(i));
-                        databaseReference.child("Activity Trackers").child(_trackerName).child(bookID.get(i)).setValue(activityTrackers);
+                        if (flag){
+                            uploadImage();
+                            DatabaseReference databaseReference = firebaseDatabase.getReference();
+                            HashMap<String,String> activityTrackers = new HashMap<>();
+                            for (int i=0;i<bookID.size();i++)
+                            {
+                                activityTrackers.put("BookID",bookID.get(i));
+                                activityTrackers.put("BookCategory",category.get(i));
+                                activityTrackers.put("BookSubCategory",subcategory.get(i));
+                                databaseReference.child("Activity Trackers").child(_trackerName).child(bookID.get(i)).setValue(activityTrackers);
+
+                                Toasty.success(getContext(),"Activity added successfully").show();
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }
+                        else {
+                            Toasty.error(getContext(),"Please Select an image for category").show();
+                        }
+
+
 
                     }
                 }
+
             }
+
+
         });
 
     }
@@ -254,9 +281,14 @@ public class ActivityTrackerFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("requestCode", String.valueOf(requestCode));
+        Log.d("dat",String.valueOf(data));
+        Log.d("res",String.valueOf(RESULT_OK));
+        Log.d("data",String.valueOf(data.getData()));
         if (requestCode == IMAGE_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             trackerImage.setImageURI(data.getData());
             uri = data.getData();
+            flag =true;
         }
     }
 
@@ -299,7 +331,5 @@ public class ActivityTrackerFragment extends Fragment {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
-
-
 
 }

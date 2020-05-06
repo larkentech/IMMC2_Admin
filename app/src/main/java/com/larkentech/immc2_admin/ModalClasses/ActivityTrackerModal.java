@@ -5,18 +5,20 @@ public class ActivityTrackerModal {
     private String BookID;
     private String BookName;
     private String BookImage;
-    private String Category;
-    private String SubCategory;
+    private String BookCategory;
+    private String BookSubCategory;
+    private Boolean isChecked=false;
 
     public ActivityTrackerModal() {
     }
 
-    public ActivityTrackerModal(String bookID, String bookName, String bookImage, String category, String subCategory) {
+    public ActivityTrackerModal(String bookID, String bookName, String bookImage, String bookCategory, String bookSubCategory, Boolean isChecked) {
         BookID = bookID;
         BookName = bookName;
         BookImage = bookImage;
-        Category = category;
-        SubCategory = subCategory;
+        BookCategory = bookCategory;
+        BookSubCategory = bookSubCategory;
+        this.isChecked = isChecked;
     }
 
     public String getBookID() {
@@ -43,19 +45,27 @@ public class ActivityTrackerModal {
         BookImage = bookImage;
     }
 
-    public String getCategory() {
-        return Category;
+    public String getBookCategory() {
+        return BookCategory;
     }
 
-    public void setCategory(String category) {
-        Category = category;
+    public void setBookCategory(String bookCategory) {
+        BookCategory = bookCategory;
     }
 
-    public String getSubCategory() {
-        return SubCategory;
+    public String getBookSubCategory() {
+        return BookSubCategory;
     }
 
-    public void setSubCategory(String subCategory) {
-        SubCategory = subCategory;
+    public void setBookSubCategory(String bookSubCategory) {
+        BookSubCategory = bookSubCategory;
+    }
+
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
     }
 }

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,9 @@ import com.larkentech.immc2_admin.MainActivity;
 import com.larkentech.immc2_admin.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
@@ -59,11 +62,14 @@ public class ComingSoonFragment extends Fragment {
     String imageUrl1;
     String imageUrl2;
 
+    List<Uri> imageuri = new ArrayList<>(2);
+
     final Calendar myCalendar = Calendar.getInstance();
 
     String pushKey;
 
-    int flag;
+    int flag = 0;
+    int flag1 = 0;
 
     Uri imageUri1;
     Uri imageUri2;
@@ -117,7 +123,7 @@ public class ComingSoonFragment extends Fragment {
         productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag = 0;
+                flag = 1;
                 openImage();
 
             }
@@ -126,7 +132,7 @@ public class ComingSoonFragment extends Fragment {
         displayImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag = 1;
+                flag = 2;
                 openImage();
 
             }
@@ -153,6 +159,21 @@ public class ComingSoonFragment extends Fragment {
                     addBookMap.put("DisplayName", displayName.getText().toString());
                     addBookMap.put("Description", description.getText().toString());
 
+
+                    for (int i=0;i<imageuri.size();i++)
+                    {
+                        if (imageuri.get(i).toString().matches("Hello"))
+                        {
+                            Toasty.error(getContext(),"Select all images").show();
+                            return;
+                        }
+                        else {
+                            uploadImage(imageuri.get(i),i,imageuri.size());
+                        }
+
+                    }
+
+                    /*
                     switch (flag)
                     {
                         case 0:
@@ -214,12 +235,17 @@ public class ComingSoonFragment extends Fragment {
 
                     }
 
+                     */
+
+                    /*
                     databaseReference.child("ComingSoon").push().setValue(addBookMap);
                     progress.dismiss();
                     Toasty.success(getContext(),"Added Successfully").show();
                     Intent i = new Intent(getActivity(), MainActivity.class);
                     startActivity(i);
                     getActivity().finish();
+
+                     */
                 }
             }
         });
@@ -261,18 +287,18 @@ public class ComingSoonFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() !=null);
+        if(requestCode == IMAGE_CODE && resultCode == RESULT_OK && data != null && data.getData() !=null);
 
         switch (flag)
         {
-            case 0:
-                imageUri1 = data.getData();
-                productImage.setImageURI(imageUri1);
-                break;
-
             case 1:
-                imageUri2 = data.getData();
-                displayImage.setImageURI(imageUri2);
+                imageuri.add(0,data.getData());
+                productImage.setImageURI(imageuri.get(0));
+                break;
+            case 2:
+                imageuri.add(1,data.getData());
+                displayImage.setImageURI(imageuri.get(1));
+                break;
         }
 
     }
@@ -291,4 +317,51 @@ public class ComingSoonFragment extends Fragment {
 
         date.setText(sdf.format(myCalendar.getTime()));
     }
+
+    public void uploadImage(Uri uri, final int count, final int imagesCount){
+
+
+        final int count11 = count+1;
+
+        final StorageReference reference1=storageReference.child(System.currentTimeMillis()+"."+getExtension(imageuri.get(count)));
+        reference1.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        reference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+
+                                String imageNo = "Image" + String.valueOf(count11);
+                                addImagesMap.put("Image"+count11,uri.toString());
+                                addBookMap.put("ProductImage",addImagesMap.get("Image1"));
+                                addBookMap.put("DisplayImage",addImagesMap.get("Image2"));
+
+                                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                DatabaseReference databaseReference = firebaseDatabase.getReference().child("ComingSoon");
+                                databaseReference.push().setValue(addBookMap);
+                                progress.dismiss();
+                                Toasty.success(getContext(),"Added Successfully").show();
+                                Intent i = new Intent(getActivity(), MainActivity.class);
+                                startActivity(i);
+                                getActivity().finish();
+
+
+
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                        Log.v("TAG", exception.getMessage());
+
+                    }
+                });
+
+    }
+
 }

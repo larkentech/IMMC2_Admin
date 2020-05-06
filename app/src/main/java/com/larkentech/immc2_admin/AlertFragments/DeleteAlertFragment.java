@@ -126,6 +126,9 @@ public class DeleteAlertFragment extends DialogFragment {
 
     private void deleteBook(String bookID){
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference2 = firebaseDatabase.getReference().child("BooksListNames").child(bookID);
+        databaseReference2.removeValue();
         if (bookSubCategoryID != null)
         {
             DatabaseReference databaseReference = firebaseDatabase.getReference().child("BookDetails").child(bookCategoryID).child(bookSubCategoryID).child(bookID);

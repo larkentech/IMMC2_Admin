@@ -421,7 +421,7 @@ public class EditAlertFragment extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGE_CODE && requestCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == IMAGE_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             switch (flag) {
                 case 1:
@@ -503,6 +503,11 @@ public class EditAlertFragment extends DialogFragment {
                     getActivity().finish();
                 }
 
+                Toasty.success(getContext(),"Update Successfull").show();
+                dismiss();
+                Intent x = new Intent(getContext(), MainActivity.class);
+                startActivity(x);
+                getActivity().finish();
 
             }
 
@@ -536,7 +541,7 @@ public class EditAlertFragment extends DialogFragment {
                                 //Toasty.success(getContext(), "Book Editted Successfully").show();
                                 if (count == 0)
                                 {
-                                    databaseReference1.child("BookImage").setValue(uri.toString());
+                                    databaseReference11.child("BookImage").setValue(uri.toString());
 
                                 }
 

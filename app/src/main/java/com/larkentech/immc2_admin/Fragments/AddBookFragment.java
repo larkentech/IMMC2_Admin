@@ -125,6 +125,10 @@ public class AddBookFragment extends Fragment {
     private List<String> categoryList = new ArrayList<String>();
     private List<String> subCategoryList = new ArrayList<String>();
 
+    ArrayAdapter<String> dataAdapter1;
+
+    ArrayAdapter<String> dataAdapter;
+
 
     public AddBookFragment() {
         // Required empty public constructor
@@ -193,12 +197,12 @@ public class AddBookFragment extends Fragment {
         addCategory = (ImageView) view.findViewById(R.id.addCategory);
         addSubCategory = (ImageView) view.findViewById(R.id.addSubCategory);
 
-        final ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,categoryList);
+        dataAdapter1 = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,categoryList);
         dataAdapter1.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         s1.setAdapter(dataAdapter1);
 
 
-        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,subCategoryList);
+        dataAdapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,subCategoryList);
         dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         s2.setAdapter(dataAdapter);
 
@@ -315,14 +319,6 @@ public class AddBookFragment extends Fragment {
                 String sp1= String.valueOf(s1.getSelectedItem());
                 selectedCategory = String.valueOf(s1.getSelectedItem().toString());
 
-                if (sp1.equals("Engineering") ) {
-                    totalImages = 7;
-                }
-                else{
-                    totalImages = 4;
-
-
-                }
 
                 Query query2 = firebaseDatabase1.child("CategoryImages").child(sp1);
                 query2.addValueEventListener(new ValueEventListener() {
@@ -364,7 +360,7 @@ public class AddBookFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == IMAGE_CODE && requestCode == RESULT_OK) {
+        if(requestCode == IMAGE_CODE && resultCode == RESULT_OK) {
             switch (flag) {
                 case 1:
                     imageuri.add(0, data.getData());
@@ -442,6 +438,7 @@ public class AddBookFragment extends Fragment {
                 addBookMap1.put("BookCategory",s1.getSelectedItem().toString());
                 addBookMap1.put("BookSubCategory",s2.getSelectedItem().toString());
                 addBookMap1.put("BookID",pushKEY);
+
                 for (int i=0;i<imageuri.size();i++)
                 {
                     if (imageuri.get(i).toString().matches("Hello"))
@@ -483,9 +480,9 @@ public class AddBookFragment extends Fragment {
                                 String imageNo = "Image" + String.valueOf(count11);
                                 addImagesMap.put("Image"+count11,uri.toString());
                                 addBookMap.put("BookImage",addImagesMap.get("Image1"));
+                                addBookMap1.put("BookImage",addImagesMap.get("Image1"));
 
-                                if (addImagesMap.size() == totalImages)
-                                {
+
                                     FirebaseDatabase firebaseDatabase11 = FirebaseDatabase.getInstance();
                                     DatabaseReference databaseReference11 = firebaseDatabase11.getReference();
                                     DatabaseReference databaseReference12 = firebaseDatabase11.getReference();
@@ -498,7 +495,7 @@ public class AddBookFragment extends Fragment {
                                     Intent i = new Intent(getActivity(), MainActivity.class);
                                     startActivity(i);
                                     getActivity().finish();
-                                }
+
 
                             }
                         });
@@ -538,6 +535,8 @@ public class AddBookFragment extends Fragment {
                     Toasty.success(getContext(),"Category Added").show();
                     alertDialog.dismiss();
                 }
+                s1.setAdapter(dataAdapter1);
+
             }
         });
 

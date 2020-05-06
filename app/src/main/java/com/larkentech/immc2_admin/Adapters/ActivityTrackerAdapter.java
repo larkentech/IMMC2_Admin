@@ -47,29 +47,50 @@ public class ActivityTrackerAdapter extends ArrayAdapter<ActivityTrackerModal> {
 
         final ActivityTrackerModal modal = getItem(position);
 
-        selectedBookCategory.add(modal.getCategory());
-        selectedBookSubCategory.add(modal.getSubCategory());
+        selectedBookCategory.add(modal.getBookCategory());
+        selectedBookSubCategory.add(modal.getBookSubCategory());
         SelectedBook.add(modal.getBookID());
 
         ImageView image = convertView.findViewById(R.id.singleBookImageTracker);
         TextView name = convertView.findViewById(R.id.bookNameTracker);
         TextView subcategory = convertView.findViewById(R.id.bookCategoryNameTracker);
-        CheckBox checkBox = convertView.findViewById(R.id.checkBoxList);
+        final CheckBox checkBox = convertView.findViewById(R.id.checkBoxList);
 
+        if (modal.getChecked()){
+            checkBox.setChecked(true);
+        }else{
+            checkBox.setChecked(false);
+        }
         name.setText(modal.getBookName());
-        subcategory.setText(modal.getSubCategory());
+        subcategory.setText(modal.getBookSubCategory());
         Glide
                 .with(getContext())
                 .load(modal.getBookImage())
                 .centerCrop()
                 .into(image);
-        checkBox.setChecked(_checkbox[position]);
+      /*  checkBox.setChecked(_checkbox[position]);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                _checkbox[position] = isChecked;
+
                 Log.v("Adapter","Position:"+position);
-            }});
+
+            }});*/
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (modal.getChecked()){
+                    checkBox.setChecked(false);
+                    modal.setChecked(false);
+                    _checkbox[position] = false;
+                }else{
+                    checkBox.setChecked(true);
+                    modal.setChecked(true);
+                    _checkbox[position] = true;
+                }
+            }
+        });
 
         return convertView;
     }

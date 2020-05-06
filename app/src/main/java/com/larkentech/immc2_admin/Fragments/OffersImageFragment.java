@@ -178,6 +178,8 @@ public class OffersImageFragment extends Fragment {
 
                 progress.show();
 
+
+
                 final StorageReference reference=storageReference.child(System.currentTimeMillis()+"."+getExtension(imageUri));
 
                 reference.putFile(imageUri)
@@ -190,7 +192,19 @@ public class OffersImageFragment extends Fragment {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         imageUrl = uri.toString();
+                                        firebaseDatabase = FirebaseDatabase.getInstance();
+                                        databaseReference1 = firebaseDatabase.getReference();
+
+                                        addBookMap.put("OfferCategory",categorySpinner.getSelectedItem().toString());
+                                        addBookMap.put("OfferSubCategory",subCategorySpinner.getSelectedItem().toString());
                                         addBookMap.put("OfferImage",imageUrl);
+                                        databaseReference1.child("Offers").push().setValue(addBookMap);
+                                        progress.dismiss();
+                                        Toasty.success(getContext(),"New Offer Added Successfully").show();
+                                        Intent i = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(i);
+                                        getActivity().finish();
+
                                     }
                                 });
 
@@ -205,20 +219,7 @@ public class OffersImageFragment extends Fragment {
                             }
                         });
 
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference1 = firebaseDatabase.getReference();
 
-                addBookMap.put("OfferCategory",categorySpinner.getSelectedItem().toString());
-                addBookMap.put("OfferSubCategory",subCategorySpinner.getSelectedItem().toString());
-
-                databaseReference1.child("Offers").push().setValue(addBookMap);
-
-                progress.dismiss();
-
-                Toasty.success(getContext(),"New Offer Added Successfully").show();
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-                getActivity().finish();
             }
         });
 
@@ -250,8 +251,6 @@ public class OffersImageFragment extends Fragment {
             imageUri = data.getData();
             offerImage.setImageURI(imageUri);
         }
-
-
     }
 
 }
